@@ -40,7 +40,7 @@ def process_users(df_users):
     return df_users
 
 
-def etl_stage_to_ods():
+def etl_stage_to_ods(df_list):
     # weather data (pure copy)
     df_prec = df_list[0]
     df_temp = df_list[1]
@@ -62,4 +62,3 @@ def etl_stage_to_ods():
 
 
 df_list = read_data()
-
