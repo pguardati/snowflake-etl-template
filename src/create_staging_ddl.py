@@ -91,7 +91,7 @@ def main():
             df = pd.read_csv(os.path.join(DIR_DATA_TEST, dataset_path))
         elif extension == "json":
             df = pd.read_json(os.path.join(DIR_DATA_TEST, dataset_path))
-        create_staging_ddl(df, table_name="precipitations")
+        create_staging_ddl(df, table_name=table)
 
 
 if __name__ == "__main__":
