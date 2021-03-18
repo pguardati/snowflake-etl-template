@@ -75,6 +75,16 @@ def sample_weather_data(dataset_path, number_of_elements=100):
     df.to_csv(output_file, index=False)
     return df
 
+
+def sample_random_json_data(dataset_path, number_of_elements=100):
+    input_file = os.path.join(DIR_DATA, dataset_path)
+    output_file = os.path.join(DIR_DATA_TEST, dataset_path)
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    df = pd.read_json(input_file, lines=True, nrows=number_of_elements)
+    df.to_json(output_file, orient="records")
+    return df
+
+
 #
 # def main():
 #     """create test data"""
@@ -95,6 +105,10 @@ datasets = [
     "yelp_dataset/yelp_academic_dataset_tip.json",
     "yelp_dataset/yelp_academic_dataset_user.json"
 ]
-_ =sample_weather_data(datasets[0])
-_ =sample_weather_data(datasets[1])
+
+_ = sample_weather_data(datasets[0])
+_ = sample_weather_data(datasets[1])
+_ = sample_random_json_data(datasets[4])
+_ = sample_random_json_data(datasets[6])
+
 
