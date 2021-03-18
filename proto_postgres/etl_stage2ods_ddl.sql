@@ -6,6 +6,7 @@ drop table if exists ods_business_features;
 drop table if exists ods_checkins;
 drop table if exists ods_reviews;
 drop table if exists ods_tips;
+drop table if exists ods_users;
 
 -- create ods tables
 create table ods_precipitations (
@@ -73,4 +74,27 @@ create table ods_reviews (
 	 text varchar
 );
 
-
+create table ods_users (
+	 user_id varchar,
+	 yelping_since timestamp,
+	 "name" varchar,
+	 average_stars float,
+	 review_count int,
+	 useful int,
+	 funny int,
+	 cool int,
+	 fans int,
+	 compliment_hot int,
+	 compliment_more int,
+	 compliment_profile int,
+	 compliment_cute int,
+	 compliment_list int,
+	 compliment_note int,
+	 compliment_plain int,
+	 compliment_cool int,
+	 compliment_funny int,
+	 compliment_writer int,
+	 compliment_photos int
+--	 elite varchar,
+--	 friends varchar,
+);
