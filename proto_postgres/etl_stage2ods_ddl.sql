@@ -18,12 +18,12 @@ create table ods_temperatures (
 );
 create table ods_covid_features (
 	 business_id varchar primary key,
-	 delivery_or_takeout varchar,
-	 grubhub_enabled varchar,
-	 call_to_action_enabled varchar,
-	 request_a_quote_enabled varchar,
-	 temporary_closed_until varchar,
-	 virtual_services_offered varchar
+	 delivery_or_takeout bool,
+	 grubhub_enabled bool,
+	 call_to_action_enabled bool,
+	 request_a_quote_enabled bool,
+	 temporary_closed_until bool,
+	 virtual_services_offered bool
 --	 covid_banner varchar, todo-explode
 --	 highlights varchar,
 );

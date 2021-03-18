@@ -20,12 +20,12 @@ with cf as (
 )
 select
     business_id,
-    CASE WHEN delivery_or_takeout = 'TRUE' THEN true ELSE false END as delivery_or_takeout,
-    CASE WHEN grubhub_enabled = 'TRUE' THEN true ELSE false END as grubhub_enabled,
-    CASE WHEN call_to_action_enabled = 'TRUE' THEN true ELSE false END as call_to_action_enabled,
-    CASE WHEN request_a_quote_enabled = 'TRUE' THEN true ELSE false END as request_a_quote_enabled,
-    CASE WHEN temporary_closed_until = 'TRUE' THEN true ELSE false END as temporary_closed_until,
-    CASE WHEN virtual_services_offered = 'TRUE' THEN true ELSE false END as virtual_services_offered
-from cf
+    CASE WHEN delivery_or_takeout = 'FALSE' THEN false ELSE true END as delivery_or_takeout,
+    CASE WHEN grubhub_enabled = 'FALSE' THEN false ELSE true END as grubhub_enabled,
+    CASE WHEN call_to_action_enabled = 'FALSE' THEN false ELSE true END as call_to_action_enabled,
+    CASE WHEN request_a_quote_enabled = 'FALSE' THEN false ELSE true END as request_a_quote_enabled,
+    CASE WHEN temporary_closed_until = 'FALSE' THEN false ELSE true END as temporary_closed_until,
+    CASE WHEN virtual_services_offered = 'FALSE' THEN false ELSE true END as virtual_services_offered
+from cf;
 
 select * from ods_covid_features;
