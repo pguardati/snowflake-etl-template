@@ -116,6 +116,6 @@ def main():
 
 if __name__ == "__main__":
     """
-    python create_staging_ddl.py > staging_cmd.py
+    python staging_create_queries.py > staging_queries.py
     """
     main()
