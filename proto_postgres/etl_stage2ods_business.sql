@@ -28,4 +28,22 @@ select
     CASE WHEN virtual_services_offered = 'FALSE' THEN false ELSE true END as virtual_services_offered
 from cf;
 
+
+insert into ods_business_features (
+    select
+         business_id,
+         name,
+         address,
+         city,
+         state,
+         postal_code,
+         cast(latitude as float),
+         cast(longitude as float),
+         cast(stars as float),
+         cast(review_count as int),
+         CASE WHEN is_open = '0' THEN false ELSE true END as is_open
+    from business
+);
+
 select * from ods_covid_features;
+select * from ods_business_features;

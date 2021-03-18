@@ -2,6 +2,7 @@
 drop table if exists ods_precipitations;
 drop table if exists ods_temperatures;
 drop table if exists ods_covid_features;
+drop table if exists ods_business_features;
 
 -- create ods tables
 create table ods_precipitations (
@@ -26,4 +27,20 @@ create table ods_covid_features (
 	 virtual_services_offered bool
 --	 covid_banner varchar, todo-explode
 --	 highlights varchar,
+);
+create table ods_business_features (
+	 business_id varchar primary key,
+	 "name" varchar,
+	 address varchar,
+	 city varchar,
+	 state varchar,
+	 postal_code varchar,
+	 latitude float,
+	 longitude float,
+	 stars float,
+	 review_count int,
+	 is_open bool
+--	 attributes, # todo: explode
+--	 categories
+--	 hours
 );
