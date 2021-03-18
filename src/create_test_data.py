@@ -4,38 +4,35 @@ import pandas as pd
 from src.constants import DIR_DATA, DIR_DATA_TEST
 
 
-def sample_dataset(dataset_path):
-    """Sample and store a dataset
-
-    Args:
-        dataset_path(str): dataset path respect to DIR_DATA
-
-    """
-    number_of_elements = 100
-    input_file = os.path.join(DIR_DATA, dataset_path)
-    output_file = os.path.join(DIR_DATA_TEST, dataset_path)
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
-
-    # sample and store file in test directory
-    extension = dataset_path.split(".")[-1]
-    if extension == "csv":
-        df_climate_temp = pd.read_csv(
-            input_file,
-            nrows=number_of_elements
-        )
-        df_climate_temp.to_csv(output_file, index=False)
-    elif extension == "json":
-        df = pd.read_json(
-            input_file,
-            nrows=number_of_elements,
-            lines=True
-        )
-        df.to_json(
-            output_file,
-            orient="records"
-        )
-
-    print(f"storing dataset in {output_file}")
+# def sample_dataset(dataset_path, target_data, target_column):
+#     """Sample and store a dataset
+#
+#     Args:
+#         dataset_path(str): dataset path respect to DIR_DATA
+#
+#     """
+#     input_file = os.path.join(DIR_DATA, dataset_path)
+#     output_file = os.path.join(DIR_DATA_TEST, dataset_path)
+#     os.makedirs(os.path.dirname(output_file), exist_ok=True)
+#
+#     # sample and store file in test directory
+#     extension = dataset_path.split(".")[-1]
+#     if extension == "csv":
+#         df = pd.read_csv(
+#             input_file,
+#         )
+#         df.to_csv(output_file, index=False)
+#     elif extension == "json":
+#         df = pd.read_json(
+#             input_file,
+#             lines=True
+#         )
+#         df.to_json(
+#             output_file,
+#             orient="records"
+#         )
+#
+#     print(f"storing dataset in {output_file}")
 
 
 def sample_reviews(dataset_path):
@@ -61,6 +58,23 @@ def sample_reviews(dataset_path):
     return reviews_id, business_id, user_id, date
 
 
+def sample_weather_data(dataset_path, number_of_elements=100):
+    input_file = os.path.join(DIR_DATA, dataset_path)
+    output_file = os.path.join(DIR_DATA_TEST, dataset_path)
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+    df = pd.read_csv(input_file)
+    # get dates that matches reviews dates
+    df_date = pd.DatetimeIndex(date).strftime('%Y%m%d')
+    target_dates = list(df_date.astype(int).values)
+    df = df[df.date.isin(target_dates)]
+    number_of_elements = len(df) if (len(df) < number_of_elements) \
+        else number_of_elements
+    # get maximum elements
+    df = df.sample(number_of_elements)
+    df.to_csv(output_file, index=False)
+    return df
+
 #
 # def main():
 #     """create test data"""
@@ -81,3 +95,6 @@ datasets = [
     "yelp_dataset/yelp_academic_dataset_tip.json",
     "yelp_dataset/yelp_academic_dataset_user.json"
 ]
+_ =sample_weather_data(datasets[0])
+_ =sample_weather_data(datasets[1])
+
