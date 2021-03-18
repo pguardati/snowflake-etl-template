@@ -4,10 +4,10 @@ select
     p.weather_date,
     precipitation,
     precipitation_normal,
-    min,
-    max,
-    normal_min,
-    normal_max
+    min as temperature_min,
+    max as temperature_max,
+    normal_min as temperature_min,
+    normal_max as temperature_max
 from ods_precipitations as p
 join ods_temperatures as t
 on p.weather_date = t.weather_date;
@@ -16,9 +16,9 @@ insert into star_dim_business
 select
 	 business_id,
 	 business_name,
-	 city,
-	 stars,
-	 review_count
+	 city as business_city,
+	 stars as business_stars,
+	 review_count as business_review_count
 from ods_business_features;
 
 insert into star_dim_users
@@ -26,8 +26,8 @@ select
 	 user_id,
 	 yelping_since,
 	 user_name,
-	 average_stars,
-	 review_count
+	 average_stars as user_average_stars,
+	 review_count as user_review_count
 from ods_users;
 
 -- fill fact table (use join to enforce data integrity)
@@ -38,10 +38,7 @@ with r as (
         date_trunc('day',review_date) as review_date,
         business_id,
         user_id,
-        stars,
-        useful,
-        funny,
-        cool,
+        stars as review_stars,
         review_text
     from ods_reviews
 )
