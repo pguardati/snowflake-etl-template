@@ -8,10 +8,6 @@ PROJECT_PATH = os.path.join(REPOSITORY_PATH, PROJECT_NAME)
 DIR_DATA = os.path.join(os.path.expanduser("~"), "data", "snowflake_data")
 DIR_DATA_TEST = os.path.join(PROJECT_PATH, "tests", "test_data")
 
-
-print("project_path:{}".format(PROJECT_PATH))
-print("data_path:{}".format(DIR_DATA))
-
 # Test Database
 DB_NAME = "test_snowflake"
 DB_HOST = "localhost"

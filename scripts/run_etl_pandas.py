@@ -4,7 +4,7 @@ from src.etl_prototype_pandas.etl_ods2dwh import etl_ods_to_dwh, query_dwh
 
 
 def main():
-    df_list = read_data()
+    df_list, _ = read_data()
 
     df_prec, df_temp, _, \
     df_business_features, _, \

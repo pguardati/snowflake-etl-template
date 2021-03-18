@@ -23,7 +23,6 @@ def read_data():
     table_names = [
         "precipitations",
         "temperatures",
-
         "covid_features",
         "business",
         "checkins",
@@ -40,4 +39,4 @@ def read_data():
         elif extension == "json":
             df = pd.read_json(os.path.join(DIR_DATA_TEST, dataset_path))
         df_list.append(df)
-    return df_list
+    return df_list, table_names
