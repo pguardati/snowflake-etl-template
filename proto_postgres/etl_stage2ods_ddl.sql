@@ -5,6 +5,7 @@ drop table if exists ods_covid_features;
 drop table if exists ods_business_features;
 drop table if exists ods_checkins;
 drop table if exists ods_reviews;
+drop table if exists ods_tips;
 
 -- create ods tables
 create table ods_precipitations (
@@ -49,7 +50,15 @@ create table ods_business_features (
 
 create table ods_checkins (
 	 business_id varchar primary key
---	 date varchar todo: explode
+--	 date timestamp todo: explode
+);
+
+create table ods_tips (
+	 date timestamp primary key,
+	 user_id varchar,
+	 business_id varchar,
+	 compliment_count int,
+	 text varchar
 );
 
 create table ods_reviews (
@@ -63,3 +72,5 @@ create table ods_reviews (
 	 cool int,
 	 text varchar
 );
+
+
