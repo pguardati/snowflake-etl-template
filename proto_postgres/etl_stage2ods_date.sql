@@ -6,11 +6,11 @@ from checkins;
 
 
 insert into ods_tips (
-	 date,
+	 tips_date,
 	 user_id,
 	 business_id,
 	 compliment_count,
-	 text
+	 tips_text
 )
 select
 	to_timestamp(date,'YYYY-MM-DD HH24:mi:ss') as date,

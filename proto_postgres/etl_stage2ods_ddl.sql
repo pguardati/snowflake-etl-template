@@ -10,12 +10,12 @@ drop table if exists ods_users;
 
 -- create ods tables
 create table ods_precipitations (
-    date date primary key,
+    weather_date timestamp primary key,
     precipitation float,
     precipitation_normal float
 );
 create table ods_temperatures (
-    date date primary key,
+    weather_date timestamp primary key,
     min float,
     max float,
     normal_min float,
@@ -34,7 +34,7 @@ create table ods_covid_features (
 );
 create table ods_business_features (
 	 business_id varchar primary key,
-	 "name" varchar,
+	 business_name varchar,
 	 address varchar,
 	 city varchar,
 	 state varchar,
@@ -51,33 +51,33 @@ create table ods_business_features (
 
 create table ods_checkins (
 	 business_id varchar primary key
---	 date timestamp todo: explode
+--	 checkin_date timestamp todo: explode
 );
 
 create table ods_tips (
-	 date timestamp primary key,
+	 tips_date timestamp primary key,
 	 user_id varchar,
 	 business_id varchar,
 	 compliment_count int,
-	 text varchar
+	 tips_text varchar
 );
 
 create table ods_reviews (
 	 review_id varchar primary key,
-	 date timestamp,
+	 review_date timestamp,
 	 business_id varchar,
 	 user_id varchar,
 	 stars int,
 	 useful int,
 	 funny int,
 	 cool int,
-	 text varchar
+	 review_text varchar
 );
 
 create table ods_users (
-	 user_id varchar,
+	 user_id varchar primary key,
 	 yelping_since timestamp,
-	 "name" varchar,
+	 user_name varchar,
 	 average_stars float,
 	 review_count int,
 	 useful int,

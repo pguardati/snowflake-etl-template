@@ -1,12 +1,4 @@
-insert into ods_covid_features (
-	 business_id,
-	 delivery_or_takeout,
-	 grubhub_enabled,
-	 call_to_action_enabled,
-	 request_a_quote_enabled,
-	 temporary_closed_until,
-	 virtual_services_offered
-	)
+insert into ods_covid_features
 with cf as (
     select
          "business_id",
@@ -29,21 +21,20 @@ select
 from cf;
 
 
-insert into ods_business_features (
-    select
-         business_id,
-         name,
-         address,
-         city,
-         state,
-         postal_code,
-         cast(latitude as float),
-         cast(longitude as float),
-         cast(stars as float),
-         cast(review_count as int),
-         CASE WHEN is_open = '0' THEN false ELSE true END as is_open
-    from business
-);
+insert into ods_business_features
+select
+     business_id,
+     name as business_name,
+     address,
+     city,
+     state,
+     postal_code,
+     cast(latitude as float),
+     cast(longitude as float),
+     cast(stars as float),
+     cast(review_count as int),
+     CASE WHEN is_open = '0' THEN false ELSE true END as is_open
+from business;
 
 select * from ods_covid_features;
 select * from ods_business_features;
