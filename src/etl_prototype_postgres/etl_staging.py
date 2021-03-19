@@ -2,7 +2,7 @@ import psycopg2
 
 from src.constants import DB_URI
 from src.etl_prototype_pandas.read_staging import read_data
-from proto_postgres import staging_queries
+from src.etl_prototype_postgres import staging_queries
 
 
 def main():
