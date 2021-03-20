@@ -92,7 +92,7 @@ def create_csv_staging_tables(
     cur.execute(
         """
         create table precipitations (
-             date int,
+             date varchar,
              precipitation float,
              precipitation_normal float
         );
@@ -101,7 +101,7 @@ def create_csv_staging_tables(
     cur.execute(
         """
         create table temperatures (
-             date int,
+             date varchar,
              min float,
              max float,
              normal_min float,
