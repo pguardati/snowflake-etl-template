@@ -5,14 +5,14 @@ from src.constants import \
     SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_JSON
 
 
-def create_staging_area_and_tables(
+def create_json_staging_area_and_tables(
         conn,
         table_names,
         db_name,
         staging_area_name
 ):
     cur = conn.cursor()
-    print("Creating staging area..")
+    print("Creating json staging area..")
     cur.execute(
         """
         use database {};
@@ -61,7 +61,7 @@ def main():
         password=SNOWFLAKE_PASSWORD,
         account=SNOWFLAKE_ACCOUNT
     )
-    create_staging_area_and_tables(
+    create_json_staging_area_and_tables(
         conn,
         table_names,
         staging_area_name=SNOWFLAKE_STAGING_JSON,
