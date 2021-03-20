@@ -13,8 +13,8 @@ def stage_data(
         datasets,
         db_name,
         staging_area_name,
-        dir_datasets,
-        staging_format
+        staging_format,
+        dir_datasets
 ):
     """upload to staging area, copy from staging into tables"""
     cur = conn.cursor()
@@ -41,7 +41,8 @@ def stage_data(
         cur.execute(
             f"""
             copy into {table_name} from @{staging_area_name}/{file_name}.gz 
-            file_format = (format_name = {staging_format});
+            file_format = (format_name = {staging_format})
+            on_error = 'skip_file';
             """
         )
         print("response: ", cur.fetchall())
@@ -78,8 +79,8 @@ def main():
         datasets,
         db_name=SNOWFLAKE_DB_NAME,
         staging_area_name=SNOWFLAKE_STAGING_JSON,
-        dir_datasets=DIR_DATA_TEST,
-        staging_format="json_records"
+        staging_format="json_records",
+        dir_datasets=DIR_DATA_TEST
     )
 
 
