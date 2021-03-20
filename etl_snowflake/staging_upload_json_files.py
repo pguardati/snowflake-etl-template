@@ -3,7 +3,7 @@ import snowflake.connector
 
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
-    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_NAME, \
+    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_JSON, \
     DIR_DATA, DIR_DATA_TEST
 
 
@@ -13,7 +13,8 @@ def stage_data(
         datasets,
         db_name,
         staging_area_name,
-        dir_datasets
+        dir_datasets,
+        staging_format
 ):
     """upload to staging area, copy from staging into tables"""
     cur = conn.cursor()
@@ -40,7 +41,7 @@ def stage_data(
         cur.execute(
             f"""
             copy into {table_name} from @{staging_area_name}/{file_name}.gz 
-            file_format = (format_name = json_records);
+            file_format = (format_name = {staging_format});
             """
         )
         print("response: ", cur.fetchall())
@@ -76,8 +77,9 @@ def main():
         table_names,
         datasets,
         db_name=SNOWFLAKE_DB_NAME,
-        staging_area_name=SNOWFLAKE_STAGING_NAME,
-        dir_datasets=DIR_DATA_TEST
+        staging_area_name=SNOWFLAKE_STAGING_JSON,
+        dir_datasets=DIR_DATA_TEST,
+        staging_format="json_records"
     )
 
 

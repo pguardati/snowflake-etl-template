@@ -2,7 +2,7 @@ import snowflake.connector
 
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
-    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_NAME
+    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_JSON
 
 
 def create_staging_area_and_tables(
@@ -48,8 +48,6 @@ def create_staging_area_and_tables(
 
 def main():
     table_names = [
-        "precipitations",
-        "temperatures",
         "covid_features",
         "business",
         "checkins",
@@ -66,7 +64,7 @@ def main():
     create_staging_area_and_tables(
         conn,
         table_names,
-        staging_area_name=SNOWFLAKE_STAGING_NAME,
+        staging_area_name=SNOWFLAKE_STAGING_JSON,
         db_name=SNOWFLAKE_DB_NAME,
     )
 
