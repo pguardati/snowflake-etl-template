@@ -1,49 +1,9 @@
 import snowflake.connector
 
+from etl_snowflake.staging_utils import create_json_staging_area_and_tables
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
     SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_JSON
-
-
-def create_json_staging_area_and_tables(
-        conn,
-        table_names,
-        db_name,
-        staging_area_name
-):
-    cur = conn.cursor()
-    print("Creating json staging area..")
-    cur.execute(
-        """
-        use database {};
-        """.format(db_name)
-    )
-    cur.execute(
-        """
-        create or replace file format json_records 
-        type = 'JSON' 
-        strip_outer_array=true;
-        """
-    )
-    cur.execute(
-        """
-        create or replace stage {}
-        file_format=json_records;
-        """.format(staging_area_name)
-    )
-
-    for table_name in table_names:
-        print(f"Creating staging table: {table_name}..")
-        cur.execute(
-            """
-            drop table if exists {};
-            """.format(table_name)
-        )
-        cur.execute(
-            """
-            create table if not exists {} (json_records variant);
-            """.format(table_name)
-        )
 
 
 def main():

@@ -1,6 +1,6 @@
 import snowflake.connector
 
-from etl_snowflake.staging_upload_json_files import stage_data
+from etl_snowflake.staging_utils import stage_data
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
     SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_CSV, \
@@ -9,13 +9,13 @@ from src.constants import \
 
 def main():
     table_names = [
-        "temperatures",
-        "precipitations"
+        "precipitations",
+        "temperatures"
     ]
 
     datasets = [
         "climate_explorer/USC00420849-BOULDER-precipitation-inch.csv",
-        "climate_explorer/USC00420849-temperature-degreeF.csv",
+        "climate_explorer/USC00420849-temperature-degreeF.csv"
     ]
 
     conn = snowflake.connector.connect(
