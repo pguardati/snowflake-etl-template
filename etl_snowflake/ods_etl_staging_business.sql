@@ -1,7 +1,8 @@
+-- covid features
 INSERT INTO
     ods_covid_features WITH cf AS (
         SELECT
-            json_records :"business_id" as business_id,
+            json_records :"business_id" AS business_id,
             json_records :"delivery or takeout" AS delivery_or_takeout,
             json_records :"Grubhub enabled" AS grubhub_enabled,
             json_records :"Call To Action enabled" AS call_to_action_enabled,
@@ -9,7 +10,7 @@ INSERT INTO
             json_records :"Temporary Closed Until" AS temporary_closed_until,
             json_records :"Virtual Services Offered" AS virtual_services_offered
         FROM
-            covid_features
+            staging_covid_features
     )
 SELECT
     business_id,
@@ -40,12 +41,12 @@ SELECT
 FROM
     cf;
 
-
+--  business features
 INSERT INTO
     ods_business_features WITH bf AS (
         SELECT
-            json_records :"business_id" as business_id,
-            json_records :"name" as name,
+            json_records :"business_id" AS business_id,
+            json_records :"name" AS name,
             json_records :"business_name" AS business_name,
             json_records :"address" AS address,
             json_records :"city" AS city,
@@ -55,9 +56,9 @@ INSERT INTO
             json_records :"longitude" AS longitude,
             json_records :"stars" AS stars,
             json_records :"review_count" AS review_count,
-            json_records :"is_open" AS is_open 
+            json_records :"is_open" AS is_open
         FROM
-            business
+            staging_business
     )
 SELECT
     business_id,
@@ -77,6 +78,7 @@ SELECT
 FROM
     bf;
 
+-- query results
 SELECT
     *
 FROM

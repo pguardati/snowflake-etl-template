@@ -9,8 +9,8 @@ from src.constants import \
 
 def main():
     table_names = [
-        "precipitations",
-        "temperatures"
+        "staging_precipitations",
+        "staging_temperatures"
     ]
 
     datasets = [

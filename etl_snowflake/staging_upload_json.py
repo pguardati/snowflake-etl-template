@@ -9,12 +9,12 @@ from src.constants import \
 
 def main():
     table_names = [
-        "covid_features",
-        "business",
-        "checkins",
-        "reviews",
-        "tips",
-        "users"
+        "staging_covid_features",
+        "staging_business",
+        "staging_checkins",
+        "staging_reviews",
+        "staging_tips",
+        "staging_users"
     ]
 
     datasets = [
