@@ -3,19 +3,20 @@ import os
 from src.constants import DIR_DATA_TEST
 
 
-def create_json_staging_area_and_tables(
+def create_staging_area(
         conn,
-        table_names,
         db_name,
-        staging_area_name
+        json_staging_area_name,
+        csv_staging_area_name
 ):
     cur = conn.cursor()
-    print("Creating json staging area..")
     cur.execute(
         """
         use database {};
         """.format(db_name)
     )
+
+    print("Creating json staging area..")
     cur.execute(
         """
         create or replace file format json_records 
@@ -27,35 +28,10 @@ def create_json_staging_area_and_tables(
         """
         create or replace stage {}
         file_format=json_records;
-        """.format(staging_area_name)
+        """.format(json_staging_area_name)
     )
 
-    for table_name in table_names:
-        print(f"Creating staging table: {table_name}..")
-        cur.execute(
-            """
-            drop table if exists {};
-            """.format(table_name)
-        )
-        cur.execute(
-            """
-            create table if not exists {} (json_records variant);
-            """.format(table_name)
-        )
-
-
-def create_csv_staging_area_and_tables(
-        conn,
-        db_name,
-        staging_area_name
-):
-    cur = conn.cursor()
     print("Creating csv staging area..")
-    cur.execute(
-        """
-        use database {};
-        """.format(db_name)
-    )
     cur.execute(
         """
         create or replace file format csv_records
@@ -73,8 +49,33 @@ def create_csv_staging_area_and_tables(
         """
         create or replace stage {}
         file_format= csv_records;
-        """.format(staging_area_name)
+        """.format(csv_staging_area_name)
     )
+
+
+def create_json_staging_tables(
+        conn,
+        table_names,
+):
+    cur = conn.cursor()
+    for table_name in table_names:
+        print(f"Creating staging table: {table_name}..")
+        cur.execute(
+            """
+            drop table if exists {};
+            """.format(table_name)
+        )
+        cur.execute(
+            """
+            create table if not exists {} (json_records variant);
+            """.format(table_name)
+        )
+
+
+def create_csv_staging_tables(
+        conn
+):
+    cur = conn.cursor()
 
     print(f"Creating csv staging tables:"
           f"precipitations and temperatures")
@@ -121,13 +122,6 @@ def stage_data(
 ):
     """upload to staging area, copy from staging into tables"""
     cur = conn.cursor()
-
-    cur.execute(
-        f"""
-        use database {db_name};
-        """
-    )
-
     for table_name, dataset in zip(table_names, datasets):
         print(f"Uploading {dataset} into staging")
         file_path = os.path.join(dir_datasets, dataset)

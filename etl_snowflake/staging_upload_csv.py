@@ -1,6 +1,6 @@
 import snowflake.connector
 
-from etl_snowflake.staging_utils import stage_data
+from etl_snowflake.staging_utils import stage_data, create_csv_staging_tables
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
     SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_CSV, \
@@ -23,7 +23,13 @@ def main():
         password=SNOWFLAKE_PASSWORD,
         account=SNOWFLAKE_ACCOUNT
     )
+    conn.cursor().execute(
+        f"""
+        use database {SNOWFLAKE_DB_NAME};
+        """
+    )
 
+    create_csv_staging_tables(conn)
     stage_data(
         conn,
         table_names,

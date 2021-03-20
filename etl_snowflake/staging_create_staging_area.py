@@ -1,9 +1,9 @@
 import snowflake.connector
 
-from etl_snowflake.staging_utils import create_csv_staging_area_and_tables
+from etl_snowflake.staging_utils import create_staging_area
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
-    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_CSV
+    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_CSV, SNOWFLAKE_STAGING_JSON
 
 
 def main():
@@ -12,10 +12,12 @@ def main():
         password=SNOWFLAKE_PASSWORD,
         account=SNOWFLAKE_ACCOUNT
     )
-    create_csv_staging_area_and_tables(
+
+    create_staging_area(
         conn,
-        staging_area_name=SNOWFLAKE_STAGING_CSV,
         db_name=SNOWFLAKE_DB_NAME,
+        json_staging_area_name=SNOWFLAKE_STAGING_CSV,
+        csv_staging_area_name=SNOWFLAKE_STAGING_JSON,
     )
 
 
