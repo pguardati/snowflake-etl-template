@@ -19,9 +19,9 @@ INSERT INTO
 SELECT
     business_id,
     business_name,
-    city AS business_city,
-    stars AS business_stars,
-    review_count AS business_review_count
+    business_city,
+    business_stars,
+    business_review_count
 FROM
     ods_business_features;
 

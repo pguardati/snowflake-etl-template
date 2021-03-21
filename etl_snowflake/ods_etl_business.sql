@@ -46,35 +46,34 @@ INSERT INTO
     ods_business_features WITH bf AS (
         SELECT
             json_records :"business_id" AS business_id,
-            json_records :"name" AS name,
             json_records :"business_name" AS business_name,
-            json_records :"address" AS address,
-            json_records :"city" AS city,
-            json_records :"state" AS state,
-            json_records :"postal_code" AS postal_code,
-            json_records :"latitude" AS latitude,
-            json_records :"longitude" AS longitude,
-            json_records :"stars" AS stars,
-            json_records :"review_count" AS review_count,
-            json_records :"is_open" AS is_open
+            json_records :"address" AS business_address,
+            json_records :"city" AS business_city,
+            json_records :"state" AS business_state,
+            json_records :"postal_code" AS business_postal_code,
+            json_records :"latitude" AS business_latitude,
+            json_records :"longitude" AS business_longitude,
+            json_records :"stars" AS business_stars,
+            json_records :"review_count" AS business_review_count,
+            json_records :"is_open" AS business_is_open
         FROM
             staging_business
     )
 SELECT
     business_id,
-    name AS business_name,
-    address,
-    city,
-    state,
-    postal_code,
-    cast(latitude AS float),
-    cast(longitude AS float),
-    cast(stars AS float),
-    cast(review_count AS int),
+    business_name,
+    business_address,
+    business_city,
+    business_state,
+    business_postal_code,
+    cast(business_latitude AS float),
+    cast(business_longitude AS float),
+    cast(business_stars AS float),
+    cast(business_review_count AS int),
     CASE
-        WHEN is_open = '0' THEN false
+        WHEN business_is_open = '0' THEN false
         ELSE TRUE
-    END AS is_open
+    END AS business_is_open
 FROM
     bf;
 

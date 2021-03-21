@@ -44,15 +44,16 @@ CREATE TABLE ods_covid_features (
 CREATE TABLE ods_business_features (
 	business_id varchar PRIMARY KEY,
 	business_name varchar,
-	address varchar,
-	city varchar,
-	state varchar,
-	postal_code varchar,
-	latitude float,
-	longitude float,
-	stars float,
-	review_count int,
-	is_open boolean --	 attributes,
+	business_address varchar,
+	business_city varchar,
+	business_state varchar,
+	business_postal_code varchar,
+	business_latitude float,
+	business_longitude float,
+	business_stars float,
+	business_review_count int,
+	business_is_open boolean
+	--	 attributes,
 	--	 categories
 	--	 hours
 );
