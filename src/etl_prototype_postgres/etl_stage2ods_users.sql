@@ -34,6 +34,3 @@ select
 	 cast(compliment_writer as int),
 	 cast(compliment_photos as int)
 from users;
-
-select * from ods_reviews;
-select * from ods_users;

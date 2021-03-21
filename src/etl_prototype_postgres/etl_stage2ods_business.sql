@@ -35,6 +35,3 @@ select
      cast(review_count as int),
      CASE WHEN is_open = '0' THEN false ELSE true END as is_open
 from business;
-
-select * from ods_covid_features;
-select * from ods_business_features;

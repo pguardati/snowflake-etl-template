@@ -16,5 +16,3 @@ select
 from temperatures
 as p;
 
-select * from ods_temperatures;
-select * from ods_precipitations;

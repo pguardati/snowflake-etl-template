@@ -20,5 +20,3 @@ select
     text
 from tips;
 
-select * from ods_checkins;
-select * from ods_tips;
