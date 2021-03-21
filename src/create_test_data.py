@@ -28,7 +28,8 @@ def sample_reviews(
     # export sampled data and matching business
     df.to_json(
         output_file,
-        orient="records"
+        orient="records",
+        date_format="iso"
     )
     reviews_ids = list(df["review_id"].values)
     business_ids = list(df["business_id"].values)
@@ -83,7 +84,7 @@ def sample_random_json_data(dataset_path, number_of_elements=100):
     output_file = os.path.join(DIR_DATA_TEST, dataset_path)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df = pd.read_json(input_file, lines=True, nrows=number_of_elements)
-    df.to_json(output_file, orient="records")
+    df.to_json(output_file, orient="records", date_format="iso")
     print(f"exported {len(df)} elements in {dataset_path}")
     return df
 

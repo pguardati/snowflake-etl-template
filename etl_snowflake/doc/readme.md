@@ -2,13 +2,7 @@
 reset database
 ```
 snowsql -f reset_db.sql
-```
-create tables
-```
 python staging_create_staging_area.py
-```
-upload files
-```
 python staging_upload_json.py
 python staging_upload_csv.py
 ```
