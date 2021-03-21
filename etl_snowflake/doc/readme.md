@@ -13,6 +13,7 @@ snowsql -f ods_ddl.sql
 snowsql -f ods_etl_weather.sql
 snowsql -f ods_etl_business.sql
 snowsql -f ods_etl_date.sql
+snowsql -f ods_etl_users.sql
 ```
 
 
