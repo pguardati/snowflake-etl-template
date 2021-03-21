@@ -16,5 +16,10 @@ snowsql -f ods_etl_date.sql
 snowsql -f ods_etl_users.sql
 ```
 
-
+# DWH
+```
+snowsql -f dwh_ddl.sql
+snowsql -f dwh_etl.sql
+snowsql -f dwh_query.sql
+``` 
 
