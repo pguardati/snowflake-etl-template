@@ -1,7 +1,3 @@
-USE DATABASE snowflake_db;
-
-USE SCHEMA public;
-
 INSERT INTO
     ods_reviews WITH r AS (
         SELECT

@@ -1,7 +1,3 @@
-USE DATABASE snowflake_db;
-
-USE SCHEMA public;
-
 -- delete ods tables
 DROP TABLE IF EXISTS ods_precipitations;
 

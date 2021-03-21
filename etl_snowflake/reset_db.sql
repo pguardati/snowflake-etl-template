@@ -1,2 +1,3 @@
-drop database snowflake_db;
-create database snowflake_db;
+DROP DATABASE snowflake_db;
+
+CREATE DATABASE snowflake_db;

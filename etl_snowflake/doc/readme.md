@@ -1,5 +1,10 @@
+# Setup snowflake 
+Insert credentials `~/.snowsql/config`
+Copy config in `config/snowflake.config`
+
+```
+```
 # Staging
-reset database
 ```
 snowsql -f reset_db.sql
 python staging_create_staging_area.py

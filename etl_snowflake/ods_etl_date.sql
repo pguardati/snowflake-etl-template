@@ -1,7 +1,3 @@
-USE DATABASE snowflake_db;
-
-USE SCHEMA public;
-
 -- checkins
 INSERT INTO
     ods_checkins (business_id)
