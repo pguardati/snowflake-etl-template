@@ -1,3 +1,7 @@
+USE DATABASE snowflake_db;
+
+USE SCHEMA public;
+
 -- precipitations
 INSERT INTO
     ods_precipitations

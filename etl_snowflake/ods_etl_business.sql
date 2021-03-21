@@ -1,3 +1,7 @@
+USE DATABASE snowflake_db;
+
+USE SCHEMA public;
+
 -- covid features
 INSERT INTO
     ods_covid_features WITH cf AS (
