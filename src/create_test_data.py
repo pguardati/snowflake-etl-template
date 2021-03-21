@@ -4,7 +4,7 @@ import pandas as pd
 from src.constants import DIR_DATA, DIR_DATA_TEST
 
 
-def sample_reviews(dataset_path, number_of_elements=100):
+def sample_reviews(dataset_path, list_of_users, number_of_elements=100):
     input_file = os.path.join(DIR_DATA, dataset_path)
     output_file = os.path.join(DIR_DATA_TEST, dataset_path)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -15,17 +15,18 @@ def sample_reviews(dataset_path, number_of_elements=100):
         nrows=number_of_elements,
         lines=True
     )
+    df = df[df["user_id"].isin(list_of_users)]
     df.to_json(
         output_file,
         orient="records"
     )
-    reviews_id = list(df["review_id"].values)
-    business_id = list(df["business_id"].values)
-    user_id = list(df["user_id"].values)
-    date = list(df["date"].values)
+    reviews_ids = list(df["review_id"].values)
+    business_ids = list(df["business_id"].values)
+    dates = list(df["date"].values)
+    user_ids = list(df["user_id"].values)
 
     print(f"exported {len(df)} elements in {dataset_path}")
-    return reviews_id, business_id, user_id, date
+    return df, reviews_ids, business_ids, dates, user_ids
 
 
 def sample_weather_data(dataset_path, dates, number_of_elements=100):
@@ -78,6 +79,12 @@ def sample_random_json_data(dataset_path, number_of_elements=100):
     return df
 
 
+def sample_users_data(dataset_path, number_of_elements):
+    df = sample_random_json_data(dataset_path, number_of_elements)
+    sampled_users = list(df.user_id.values)
+    return sampled_users
+
+
 def main():
     """create test data"""
 
@@ -92,19 +99,19 @@ def main():
         "users": "yelp_dataset/yelp_academic_dataset_user.json"
     }
 
-    # Sample reviews - datasets with all foreign keys of the future star schema
-    reviews_ids, business_ids, user_ids, dates = sample_reviews(
-        datasets["reviews"], number_of_elements=3000
+    # Sample users from biggest set
+    sampled_users = sample_users_data(datasets["users"],
+                                      number_of_elements=10000)
+    # # Sample data that matches the extracted keys from reviews
+    df_reviews, reviews_ids, business_ids, dates, _ = sample_reviews(
+        datasets["reviews"],
+        list_of_users=sampled_users,
+        number_of_elements=10000
     )
-
-    # Sample data that matches the extracted keys from reviews
-    _ = sample_weather_data(datasets["precipitations"], dates)
-    _ = sample_weather_data(datasets["temperatures"], dates)
-
     _ = sample_data_by_target(
         datasets["business_features"], business_ids, "business_id")
-    _ = sample_data_by_target(
-        datasets["users"], user_ids, "user_id", number_of_elements=1000)
+    _ = sample_weather_data(datasets["precipitations"], dates)
+    _ = sample_weather_data(datasets["temperatures"], dates)
 
     # sample at random data excluded from star schema
     _ = sample_random_json_data(datasets["covid_features"])
