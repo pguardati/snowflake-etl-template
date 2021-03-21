@@ -25,6 +25,8 @@ snowsql -f ods_etl_users.sql
 ```
 snowsql -f dwh_ddl.sql
 snowsql -f dwh_etl.sql
-snowsql -f dwh_query.sql
 ``` 
+```
+snowsql -f dwh_query.sql
+```
 

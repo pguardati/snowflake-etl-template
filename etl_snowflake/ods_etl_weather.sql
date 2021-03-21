@@ -13,10 +13,10 @@ INSERT INTO
     ods_temperatures
 SELECT
     to_timestamp(date, 'YYYYMMDD') AS weather_date,
-    cast(min AS float),
-    cast(max AS float),
-    cast(normal_min AS float),
-    cast(normal_max AS float)
+    cast(min AS float) AS temperature_min,
+    cast(max AS float) AS temperature_max,
+    cast(normal_min AS float) AS temperature_min,
+    cast(normal_max AS float) AS temperature_max
 FROM
     staging_temperatures AS p;
 

@@ -5,13 +5,14 @@ SELECT
     p.weather_date,
     precipitation,
     precipitation_normal,
-    min AS temperature_min,
-    max AS temperature_max,
-    normal_min AS temperature_min,
-    normal_max AS temperature_max
+	temperature_min,
+	temperature_max,
+	temperature_normal_min,
+	temperature_normal_max
 FROM
     ods_precipitations AS p
     JOIN ods_temperatures AS t ON p.weather_date = t.weather_date;
+
 
 INSERT INTO
     star_dim_business

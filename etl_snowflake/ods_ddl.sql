@@ -24,10 +24,10 @@ CREATE TABLE ods_precipitations (
 
 CREATE TABLE ods_temperatures (
 	weather_date timestamp PRIMARY KEY,
-	min float,
-	max float,
-	normal_min float,
-	normal_max float
+	temperature_min float,
+	temperature_max float,
+	temperature_normal_min float,
+	temperature_normal_max float
 );
 
 CREATE TABLE ods_covid_features (
