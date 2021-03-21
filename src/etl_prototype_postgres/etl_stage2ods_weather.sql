@@ -4,7 +4,9 @@ select
     cast(precipitation as float),
     cast(precipitation_normal as float)
 from precipitations
-as p;
+as p
+where (precipitation ~ '^[0-9\.]+$');
+
 
 insert into ods_temperatures
 select

@@ -4,18 +4,28 @@ import pandas as pd
 from src.constants import DIR_DATA, DIR_DATA_TEST
 
 
-def sample_reviews(dataset_path, list_of_users, number_of_elements=100):
+def sample_reviews(
+        dataset_path,
+        list_of_users,
+        number_of_loaded_elements=100,
+        number_of_exported_elements=100
+):
     input_file = os.path.join(DIR_DATA, dataset_path)
     output_file = os.path.join(DIR_DATA_TEST, dataset_path)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
-    # sample and store file in test directory
+    # sample reviews based on users
     df = pd.read_json(
         input_file,
-        nrows=number_of_elements,
+        nrows=number_of_loaded_elements,
         lines=True
     )
     df = df[df["user_id"].isin(list_of_users)]
+    number_of_elements = len(df) if (len(df) < number_of_exported_elements) \
+        else number_of_exported_elements
+    df = df.sample(number_of_elements, random_state=42)
+
+    # export sampled data and matching business
     df.to_json(
         output_file,
         orient="records"
@@ -26,7 +36,7 @@ def sample_reviews(dataset_path, list_of_users, number_of_elements=100):
     user_ids = list(df["user_id"].values)
 
     print(f"exported {len(df)} elements in {dataset_path}")
-    return df, reviews_ids, business_ids, dates, user_ids
+    return df, business_ids
 
 
 def sample_weather_data(dataset_path, dates, number_of_elements=100):
@@ -42,13 +52,13 @@ def sample_weather_data(dataset_path, dates, number_of_elements=100):
     number_of_elements = len(df) if (len(df) < number_of_elements) \
         else number_of_elements
     # get maximum elements
-    df = df.sample(number_of_elements)
+    df = df.sample(number_of_elements, random_state=42)
     df.to_csv(output_file, index=False)
     print(f"exported {len(df)} elements in {dataset_path}")
     return df
 
 
-def sample_data_by_target(
+def select_data(
         dataset_path,
         target_ids,
         target_column,
@@ -59,14 +69,13 @@ def sample_data_by_target(
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
     df = pd.read_json(input_file, lines=True, nrows=number_of_elements)
-    # get dates that matches reviews dates
     df = df[df[target_column].isin(target_ids)]
-    # get maximum elements
-    number_of_elements = len(df) if (len(df) < number_of_elements) \
-        else number_of_elements
     df.to_json(output_file, orient="records")
+
     print(f"exported {len(df)} elements in {dataset_path}")
-    return df
+    sampled_targed_elements = list(df[target_column].values)
+
+    return df, sampled_targed_elements
 
 
 def sample_random_json_data(dataset_path, number_of_elements=100):
@@ -99,17 +108,24 @@ def main():
         "users": "yelp_dataset/yelp_academic_dataset_user.json"
     }
 
-    # Sample users from biggest set
+    # Sample users ( it is the biggest dataset )
     sampled_users = sample_users_data(datasets["users"],
-                                      number_of_elements=10000)
-    # # Sample data that matches the extracted keys from reviews
-    df_reviews, reviews_ids, business_ids, dates, _ = sample_reviews(
+                                      number_of_elements=1000)
+
+    # Sample business reviewed by sampled users
+    df_reviews, business_ids = sample_reviews(
         datasets["reviews"],
         list_of_users=sampled_users,
-        number_of_elements=10000
+        number_of_loaded_elements=500000,
+        number_of_exported_elements=1000
     )
-    _ = sample_data_by_target(
+    _, sampled_businesses = select_data(
         datasets["business_features"], business_ids, "business_id")
+
+    # Sample dates
+    df_extracted_dates = df_reviews[
+        df_reviews["business_id"].isin(sampled_businesses)]
+    dates = list(df_extracted_dates.date.values)
     _ = sample_weather_data(datasets["precipitations"], dates)
     _ = sample_weather_data(datasets["temperatures"], dates)
 
