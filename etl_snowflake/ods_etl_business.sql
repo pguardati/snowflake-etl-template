@@ -76,14 +76,3 @@ SELECT
     END AS business_is_open
 FROM
     bf;
-
--- query results
-SELECT
-    *
-FROM
-    ods_covid_features;
-
-SELECT
-    *
-FROM
-    ods_business_features;

@@ -19,14 +19,3 @@ SELECT
     cast(normal_max AS float) AS temperature_max
 FROM
     staging_temperatures AS p;
-
--- query results
-SELECT
-    *
-FROM
-    ods_temperatures;
-
-SELECT
-    *
-FROM
-    ods_precipitations;

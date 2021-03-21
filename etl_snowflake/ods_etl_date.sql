@@ -26,13 +26,3 @@ SELECT
     text
 FROM
     t;
-
-SELECT
-    *
-FROM
-    ods_checkins;
-
-SELECT
-    *
-FROM
-    ods_tips;
