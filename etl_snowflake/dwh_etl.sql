@@ -29,10 +29,10 @@ INSERT INTO
     star_dim_users
 SELECT
     user_id,
-    yelping_since,
+    user_yelping_since,
     user_name,
-    average_stars AS user_average_stars,
-    review_count AS user_review_count
+    user_average_stars,
+    user_review_count
 FROM
     ods_users;
 
@@ -44,7 +44,7 @@ INSERT INTO
             date_trunc('day', review_date) AS review_date,
             business_id,
             user_id,
-            stars AS review_stars,
+            review_stars,
             review_text
         FROM
             ods_reviews

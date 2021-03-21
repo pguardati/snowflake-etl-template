@@ -75,7 +75,7 @@ CREATE TABLE ods_reviews (
 	review_date timestamp,
 	business_id varchar,
 	user_id varchar,
-	stars int,
+	review_stars int,
 	useful int,
 	funny int,
 	cool int,
@@ -84,10 +84,10 @@ CREATE TABLE ods_reviews (
 
 CREATE TABLE ods_users (
 	user_id varchar PRIMARY KEY,
-	yelping_since timestamp,
+	user_yelping_since timestamp,
 	user_name varchar,
-	average_stars float,
-	review_count int,
+	user_average_stars float,
+	user_review_count int,
 	useful int,
 	funny int,
 	cool int,

@@ -2,27 +2,27 @@ INSERT INTO
     ods_reviews WITH r AS (
         SELECT
             json_records: review_id AS review_id,
-            json_records: date AS date,
+            json_records: date AS review_date,
             json_records: business_id AS business_id,
             json_records: user_id AS user_id,
-            json_records: stars AS stars,
+            json_records: stars AS review_stars,
             json_records: useful AS useful,
             json_records: funny AS funny,
             json_records: cool AS cool,
-            json_records: text AS text
+            json_records: text AS review_text
         FROM
             staging_reviews
     )
 SELECT
     review_id,
-    to_timestamp(date) AS review_date,
+    to_timestamp(review_date),
     business_id,
     user_id,
-    cast(stars AS int),
+    cast(review_stars AS int),
     cast(useful AS int),
     cast(funny AS int),
     cast(cool AS int),
-    text AS review_text
+    review_text
 FROM
     r;
 
@@ -30,10 +30,10 @@ INSERT INTO
     ods_users WITH u AS (
         SELECT
             json_records: user_id AS user_id,
-            json_records: yelping_since AS yelping_since,
+            json_records: yelping_since AS user_yelping_since,
             json_records: user_name AS user_name,
-            json_records: average_stars AS average_stars,
-            json_records: review_count AS review_count,
+            json_records: average_stars AS user_average_stars,
+            json_records: review_count AS user_review_count,
             json_records: useful AS useful,
             json_records: funny AS funny,
             json_records: cool AS cool,
@@ -54,10 +54,10 @@ INSERT INTO
     )
 SELECT
     user_id,
-    to_timestamp(yelping_since) AS yelping_since,
+    to_timestamp(user_yelping_since),
     user_name,
-    cast(average_stars AS float),
-    cast(review_count AS int),
+    cast(user_average_stars AS float),
+    cast(user_review_count AS int),
     cast(useful AS int),
     cast(funny AS int),
     cast(cool AS int),
