@@ -80,40 +80,36 @@ def sample_random_json_data(dataset_path, number_of_elements=100):
 
 def main():
     """create test data"""
-    # Sample reviews - it contains all foreign keys of the future star schema
-    reviews_path = "yelp_dataset/yelp_academic_dataset_review.json"
+
+    datasets = {
+        "reviews": "yelp_dataset/yelp_academic_dataset_review.json",
+        "precipitations": "climate_explorer/USC00420849-BOULDER-precipitation-inch.csv",
+        "temperatures": "climate_explorer/USC00420849-temperature-degreeF.csv",
+        "covid_features": "covid_19_dataset_2020_06_10/yelp_academic_dataset_covid_features.json",
+        "business_features": "yelp_dataset/yelp_academic_dataset_business.json",
+        "checkins": "yelp_dataset/yelp_academic_dataset_checkin.json",
+        "tips": "yelp_dataset/yelp_academic_dataset_tip.json",
+        "users": "yelp_dataset/yelp_academic_dataset_user.json"
+    }
+
+    # Sample reviews - datasets with all foreign keys of the future star schema
     reviews_ids, business_ids, user_ids, dates = sample_reviews(
-        reviews_path,
-        number_of_elements=3000
+        datasets["reviews"], number_of_elements=3000
     )
 
     # Sample data that matches the extracted keys from reviews
-    datasets = [
-        "climate_explorer/USC00420849-BOULDER-precipitation-inch.csv",
-        "climate_explorer/USC00420849-temperature-degreeF.csv",
+    _ = sample_weather_data(datasets["precipitations"], dates)
+    _ = sample_weather_data(datasets["temperatures"], dates)
 
-        "covid_19_dataset_2020_06_10/yelp_academic_dataset_covid_features.json",
+    _ = sample_data_by_target(
+        datasets["business_features"], business_ids, "business_id")
+    _ = sample_data_by_target(
+        datasets["users"], user_ids, "user_id", number_of_elements=1000)
 
-        "yelp_dataset/yelp_academic_dataset_business.json",
-
-        "yelp_dataset/yelp_academic_dataset_checkin.json",
-        "yelp_dataset/yelp_academic_dataset_tip.json",
-
-        "yelp_dataset/yelp_academic_dataset_user.json"
-    ]
-
-    _ = sample_weather_data(datasets[0], dates)
-    _ = sample_weather_data(datasets[1], dates)
-
-    _ = sample_data_by_target(datasets[3], business_ids, "business_id")
-    _ = sample_random_json_data(datasets[2])
-    # fill at random and exclude from star
-
-    _ = sample_random_json_data(datasets[4])
-    _ = sample_random_json_data(datasets[5])
-
-    _ = sample_data_by_target(datasets[6], user_ids, "user_id",
-                              number_of_elements=1000)
+    # sample at random data excluded from star schema
+    _ = sample_random_json_data(datasets["covid_features"])
+    _ = sample_random_json_data(datasets["checkins"])
+    _ = sample_random_json_data(datasets["tips"])
 
 
 if __name__ == "__main__":
