@@ -17,7 +17,9 @@ snowsql \
 -f ods_etl_users.sql
 
 # DWH
-snowsql -f dwh_etl.sql \
+snowsql \
+-f dwh_ddl.sql \
+-f dwh_etl.sql
 
 # Business Query
 snowsql -f dwh_query.sql

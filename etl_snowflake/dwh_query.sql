@@ -1,11 +1,11 @@
 --query to check if weather affects users' reviews
 SELECT
-    review_id,
+    b.business_name,
+    w.temperature_max,
+    w.temperature_min,
+    w.precipitation,
     review_stars,
-    review_text,
-    w.*,
-    b.*,
-    u.*
+    review_text
 FROM
     star_fact_reviews AS r
     JOIN star_dim_weather AS w ON r.review_date = w.weather_date

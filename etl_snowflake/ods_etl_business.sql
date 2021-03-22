@@ -46,7 +46,7 @@ INSERT INTO
     ods_business_features WITH bf AS (
         SELECT
             json_records :"business_id" AS business_id,
-            json_records :"business_name" AS business_name,
+            json_records :"name" AS business_name,
             json_records :"address" AS business_address,
             json_records :"city" AS business_city,
             json_records :"state" AS business_state,
