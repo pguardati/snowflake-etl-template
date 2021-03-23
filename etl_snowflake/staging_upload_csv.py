@@ -9,8 +9,8 @@ from src.constants import \
 
 def main():
     table_names = [
-        "staging_precipitations",
-        "staging_temperatures"
+        "precipitations",
+        "temperatures"
     ]
 
     datasets = [
@@ -26,6 +26,11 @@ def main():
     conn.cursor().execute(
         f"""
         use database {SNOWFLAKE_DB_NAME};
+        """
+    )
+    conn.cursor().execute(
+        f"""
+        use schema staging;
         """
     )
 

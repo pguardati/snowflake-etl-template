@@ -15,6 +15,11 @@ def create_staging_area(
         use database {};
         """.format(db_name)
     )
+    cur.execute(
+        """
+        use schema staging;
+        """
+    )
 
     print("Creating json staging area..")
     cur.execute(
@@ -91,7 +96,7 @@ def create_csv_staging_tables(
     )
     cur.execute(
         """
-        create table staging_precipitations (
+        create table precipitations (
              date varchar,
              precipitation float,
              precipitation_normal float
@@ -100,7 +105,7 @@ def create_csv_staging_tables(
     )
     cur.execute(
         """
-        create table staging_temperatures (
+        create table temperatures (
              date varchar,
              min float,
              max float,
@@ -122,6 +127,7 @@ def stage_data(
 ):
     """upload to staging area, copy from staging into tables"""
     cur = conn.cursor()
+    # upload data in staging area
     for table_name, dataset in zip(table_names, datasets):
         print(f"Uploading {dataset} into staging")
         file_path = os.path.join(dir_datasets, dataset)
@@ -131,7 +137,7 @@ def stage_data(
             """
         )
         print("response: ", cur.fetchall())
-
+    # move data to table
     for table_name, dataset in zip(table_names, datasets):
         print(f"Loading staging data into {table_name}")
         file_name = os.path.basename(os.path.join(DIR_DATA_TEST, dataset))

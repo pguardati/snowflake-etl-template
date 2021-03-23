@@ -9,12 +9,12 @@ from src.constants import \
 
 def main():
     table_names = [
-        "staging_covid_features",
-        "staging_business",
-        "staging_checkins",
-        "staging_reviews",
-        "staging_tips",
-        "staging_users"
+        "covid_features",
+        "business",
+        "checkins",
+        "reviews",
+        "tips",
+        "users"
     ]
 
     datasets = [
@@ -36,7 +36,11 @@ def main():
         use database {SNOWFLAKE_DB_NAME};
         """
     )
-
+    conn.cursor().execute(
+        f"""
+        use schema staging;
+        """
+    )
     create_json_staging_tables(conn, table_names)
     stage_data(
         conn,

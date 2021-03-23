@@ -1,8 +1,8 @@
 # Creation
 snowsql -f reset_db.sql
-python staging_create_staging_area.py
 
 # Staging
+python staging_create_staging_area.py
 python staging_upload_json.py
 python staging_upload_csv.py
 
