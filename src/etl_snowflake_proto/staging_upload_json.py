@@ -1,6 +1,6 @@
 import snowflake.connector
 
-from etl_snowflake.staging_utils import stage_data, create_json_staging_tables
+from src.etl_snowflake_proto.staging_utils import stage_data, create_json_staging_tables
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
     SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_JSON, \
