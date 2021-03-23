@@ -8,6 +8,7 @@ python staging_upload_csv.py
 
 # ODS
 snowsql \
+-d snowflake_db -s ods \
 -f ods_ddl.sql \
 -f ods_etl_weather.sql \
 -f ods_etl_business.sql \

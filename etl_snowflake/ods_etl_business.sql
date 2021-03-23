@@ -1,6 +1,6 @@
 -- covid features
 INSERT INTO
-    ods_covid_features WITH cf AS (
+    covid_features WITH cf AS (
         SELECT
             json_records :"business_id" AS business_id,
             json_records :"delivery or takeout" AS delivery_or_takeout,
@@ -10,7 +10,7 @@ INSERT INTO
             json_records :"Temporary Closed Until" AS temporary_closed_until,
             json_records :"Virtual Services Offered" AS virtual_services_offered
         FROM
-            staging_covid_features
+            staging.covid_features
     )
 SELECT
     business_id,
@@ -43,7 +43,7 @@ FROM
 
 --  business features
 INSERT INTO
-    ods_business_features WITH bf AS (
+    business_features WITH bf AS (
         SELECT
             json_records :"business_id" AS business_id,
             json_records :"name" AS business_name,
@@ -57,7 +57,7 @@ INSERT INTO
             json_records :"review_count" AS business_review_count,
             json_records :"is_open" AS business_is_open
         FROM
-            staging_business
+            staging.business
     )
 SELECT
     business_id,

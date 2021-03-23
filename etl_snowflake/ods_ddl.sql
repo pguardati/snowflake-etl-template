@@ -1,28 +1,28 @@
 -- delete ods tables
-DROP TABLE IF EXISTS ods_precipitations;
+DROP TABLE IF EXISTS precipitations;
 
-DROP TABLE IF EXISTS ods_temperatures;
+DROP TABLE IF EXISTS temperatures;
 
-DROP TABLE IF EXISTS ods_covid_features;
+DROP TABLE IF EXISTS covid_features;
 
-DROP TABLE IF EXISTS ods_business_features;
+DROP TABLE IF EXISTS business_features;
 
-DROP TABLE IF EXISTS ods_checkins;
+DROP TABLE IF EXISTS checkins;
 
-DROP TABLE IF EXISTS ods_reviews;
+DROP TABLE IF EXISTS reviews;
 
-DROP TABLE IF EXISTS ods_tips;
+DROP TABLE IF EXISTS tips;
 
-DROP TABLE IF EXISTS ods_users;
+DROP TABLE IF EXISTS users;
 
 -- create ods tables
-CREATE TABLE ods_precipitations (
+CREATE TABLE precipitations (
 	weather_date timestamp PRIMARY KEY,
 	precipitation float,
 	precipitation_normal float
 );
 
-CREATE TABLE ods_temperatures (
+CREATE TABLE temperatures (
 	weather_date timestamp PRIMARY KEY,
 	temperature_min float,
 	temperature_max float,
@@ -30,7 +30,7 @@ CREATE TABLE ods_temperatures (
 	temperature_normal_max float
 );
 
-CREATE TABLE ods_covid_features (
+CREATE TABLE covid_features (
 	business_id varchar PRIMARY KEY,
 	delivery_or_takeout boolean,
 	grubhub_enabled boolean,
@@ -41,7 +41,7 @@ CREATE TABLE ods_covid_features (
 	--	 highlights varchar,
 );
 
-CREATE TABLE ods_business_features (
+CREATE TABLE business_features (
 	business_id varchar PRIMARY KEY,
 	business_name varchar,
 	business_address varchar,
@@ -58,11 +58,11 @@ CREATE TABLE ods_business_features (
 	--	 hours
 );
 
-CREATE TABLE ods_checkins (
+CREATE TABLE checkins (
 	business_id varchar PRIMARY KEY --	 checkin_date timestamp 
 );
 
-CREATE TABLE ods_tips (
+CREATE TABLE tips (
 	tips_date timestamp PRIMARY KEY,
 	user_id varchar,
 	business_id varchar,
@@ -70,7 +70,7 @@ CREATE TABLE ods_tips (
 	tips_text varchar
 );
 
-CREATE TABLE ods_reviews (
+CREATE TABLE reviews (
 	review_id varchar PRIMARY KEY,
 	review_date timestamp,
 	business_id varchar,
@@ -82,7 +82,7 @@ CREATE TABLE ods_reviews (
 	review_text varchar
 );
 
-CREATE TABLE ods_users (
+CREATE TABLE users (
 	user_id varchar PRIMARY KEY,
 	user_yelping_since timestamp,
 	user_name varchar,

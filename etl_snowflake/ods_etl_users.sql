@@ -1,5 +1,5 @@
 INSERT INTO
-    ods_reviews WITH r AS (
+    reviews WITH r AS (
         SELECT
             json_records: review_id AS review_id,
             json_records: date AS review_date,
@@ -11,7 +11,7 @@ INSERT INTO
             json_records: cool AS cool,
             json_records: text AS review_text
         FROM
-            staging_reviews
+            staging.reviews
     )
 SELECT
     review_id,
@@ -27,7 +27,7 @@ FROM
     r;
 
 INSERT INTO
-    ods_users WITH u AS (
+    users WITH u AS (
         SELECT
             json_records: user_id AS user_id,
             json_records: yelping_since AS user_yelping_since,
@@ -50,7 +50,7 @@ INSERT INTO
             json_records: compliment_writer AS compliment_writer,
             json_records: compliment_photo AS compliment_photo
         FROM
-            staging_users
+            staging.users
     )
 SELECT
     user_id,
