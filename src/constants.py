@@ -18,8 +18,8 @@ SNOWFLAKE_USER = snowflake_config.get("SNOWFLAKE", "user")
 SNOWFLAKE_PASSWORD = snowflake_config.get("SNOWFLAKE", "password")
 SNOWFLAKE_ACCOUNT = snowflake_config.get("SNOWFLAKE", "account")
 SNOWFLAKE_DB_NAME = "snowflake_db"
-SNOWFLAKE_STAGING_JSON = "staging_json"
-SNOWFLAKE_STAGING_CSV = "staging_csv"
+SNOWFLAKE_STAGING_JSON = "file_json"
+SNOWFLAKE_STAGING_CSV = "file_csv"
 
 # Test Database
 DB_NAME = "test_snowflake"
