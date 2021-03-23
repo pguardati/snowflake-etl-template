@@ -43,7 +43,7 @@ CREATE TABLE covid_features (
     temporary_closed_until boolean,
     virtual_services_offered boolean,
     covid_banner varchar,
-    highlights varchar,
+    highlights varchar
 );
 
 CREATE TABLE business_features (
