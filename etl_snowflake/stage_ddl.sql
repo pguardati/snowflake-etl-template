@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS temperatures;
 
 DROP TABLE IF EXISTS covid_features;
 
-DROP TABLE IF EXISTS business;
+DROP TABLE IF EXISTS business_features;
 
 DROP TABLE IF EXISTS checkins;
 
@@ -50,7 +50,7 @@ CREATE TABLE temperatures (
 
 CREATE TABLE IF NOT EXISTS covid_features (json_records variant);
 
-CREATE TABLE IF NOT EXISTS business (json_records variant);
+CREATE TABLE IF NOT EXISTS business_features (json_records variant);
 
 CREATE TABLE IF NOT EXISTS checkins (json_records variant);
 
