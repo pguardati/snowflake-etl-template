@@ -17,10 +17,10 @@ snowsql \
 
 # DWH
 snowsql \
--f dwh_ddl.sql \
+-d snowflake_db -s dwh \
 -f dwh_ddl.sql \
 -f dwh_etl.sql
 
 # Business Query
-snowsql -f dwh_query.sql
+snowsql -d snowflake_db -s dwh -f dwh_query.sql
 
