@@ -2,9 +2,9 @@ USE DATABASE snowflake_db;
 
 USE schema ods;
 
--- process covid features
 INSERT INTO
     business (
+        -- process covid features
         WITH cf_processed AS (
             SELECT
                 json_records :"business_id" AS business_id,
