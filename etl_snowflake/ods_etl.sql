@@ -122,3 +122,31 @@ INSERT INTO
             p_processed AS p
             JOIN t_processed AS t ON p.weather_date = t.weather_date
     );
+
+-- create users
+INSERT INTO
+    users (
+        SELECT
+            json_records: user_id AS user_id,
+            to_timestamp(json_records: yelping_since) AS user_yelping_since,
+            json_records: "name" AS user_name,
+            cast(json_records :average_stars AS float) AS user_average_stars,
+            cast(json_records :review_count AS int) AS user_review_count,
+            cast(json_records :useful AS int) AS useful,
+            cast(json_records :funny AS int) AS funny,
+            cast(json_records :cool AS int) AS cool,
+            cast(json_records :fans AS int) AS fans,
+            cast(json_records :compliment_hot AS int) AS compliment_hot,
+            cast(json_records :compliment_more AS int) AS compliment_more,
+            cast(json_records :compliment_profile AS int) AS compliment_profile,
+            cast(json_records :compliment_cute AS int) AS compliment_cute,
+            cast(json_records :compliment_list AS int) AS compliment_list,
+            cast(json_records :compliment_note AS int) AS compliment_note,
+            cast(json_records :compliment_plain AS int) AS compliment_plain,
+            cast(json_records :compliment_cool AS int) AS compliment_cool,
+            cast(json_records :compliment_funny AS int) AS compliment_funny,
+            cast(json_records :compliment_writer AS int) AS compliment_writer,
+            cast(json_records :compliment_photos AS int) AS compliment_photos
+        FROM
+            staging.users
+    );
