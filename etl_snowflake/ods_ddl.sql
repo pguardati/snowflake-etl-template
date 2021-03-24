@@ -41,9 +41,9 @@ CREATE TABLE covid_features (
     call_to_action_enabled boolean,
     request_a_quote_enabled boolean,
     temporary_closed_until boolean,
-    virtual_services_offered boolean,
-    covid_banner varchar,
-    highlights varchar
+    virtual_services_offered boolean
+    -- covid_banner varchar
+    -- highlights varchar
 );
 
 CREATE TABLE business_features (
@@ -57,35 +57,15 @@ CREATE TABLE business_features (
     business_longitude float,
     business_stars float,
     business_review_count int,
-    business_is_open boolean,
-    attributes varchar,
-    categories varchar,
-    hours varchar
+    business_is_open boolean
+    -- attributes varchar,
+    -- categories varchar,
+    -- hours varchar
 );
 
 CREATE TABLE checkins (
-    business_id varchar PRIMARY KEY,
-    checkin_date timestamp
-);
-
-CREATE TABLE tips (
-    tips_date timestamp PRIMARY KEY,
-    user_id varchar,
-    business_id varchar,
-    compliment_count int,
-    tips_text varchar
-);
-
-CREATE TABLE reviews (
-    review_id varchar PRIMARY KEY,
-    review_date timestamp,
-    business_id varchar,
-    user_id varchar,
-    review_stars int,
-    useful int,
-    funny int,
-    cool int,
-    review_text varchar
+    business_id varchar PRIMARY KEY
+    -- checkin_date timestamp
 );
 
 CREATE TABLE users (
@@ -108,7 +88,27 @@ CREATE TABLE users (
     compliment_cool int,
     compliment_funny int,
     compliment_writer int,
-    compliment_photos int,
-    elite varchar,
-    friends varchar
+    compliment_photos int
+    -- elite varchar,
+    -- friends varchar
+);
+
+CREATE TABLE tips (
+    tips_date timestamp PRIMARY KEY,
+    user_id varchar,
+    business_id varchar,
+    compliment_count int,
+    tips_text varchar
+);
+
+CREATE TABLE reviews (
+    review_id varchar PRIMARY KEY,
+    review_date timestamp,
+    business_id varchar,
+    user_id varchar,
+    review_stars int,
+    useful int,
+    funny int,
+    cool int,
+    review_text varchar
 );
