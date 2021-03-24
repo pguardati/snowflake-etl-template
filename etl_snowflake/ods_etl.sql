@@ -112,12 +112,12 @@ INSERT INTO
         )
         SELECT
             p.weather_date AS weather_date,
-            p.precipitation,
-            p.precipitation_normal,
             t.temperature_min,
             t.temperature_max,
             t.temperature_normal_min,
-            t.temperature_normal_max
+            t.temperature_normal_max,
+            p.precipitation,
+            p.precipitation_normal
         FROM
             p_processed AS p
             JOIN t_processed AS t ON p.weather_date = t.weather_date
