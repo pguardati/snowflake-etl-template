@@ -3,7 +3,7 @@ USE DATABASE snowflake_db;
 USE schema ods;
 
 -- delete ods tables
-DROP TABLE IF EXISTS weather CASCADE ;
+DROP TABLE IF EXISTS weather CASCADE;
 
 DROP TABLE IF EXISTS business CASCADE;
 
@@ -12,7 +12,6 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tips CASCADE;
 
 DROP TABLE IF EXISTS reviews CASCADE;
-
 
 -- create ods tables
 CREATE TABLE weather (
@@ -47,8 +46,8 @@ CREATE TABLE business(
     request_a_quote_enabled boolean,
     temporary_closed_until boolean,
     virtual_services_offered boolean,
-    -- covid_banner varchar
-    -- highlights varcha
+    -- covid_banner varchar,
+    -- highlights varchar,
     checkin_dates varchar,
     CONSTRAINT pk_business_id PRIMARY KEY (business_id)
 );
@@ -80,7 +79,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE tips (
-    tips_id int IDENTITY(1,1),
+    tips_id int IDENTITY(1, 1),
     tips_date timestamp,
     user_id varchar,
     business_id varchar,
@@ -101,7 +100,7 @@ CREATE TABLE reviews (
     funny int,
     cool int,
     review_text varchar,
-    CONSTRAINT pk_review_id PRIMARY KEY (review_id), 
+    CONSTRAINT pk_review_id PRIMARY KEY (review_id),
     CONSTRAINT fk_date_id FOREIGN KEY (review_date) REFERENCES weather(weather_date),
     CONSTRAINT fk_business_id FOREIGN KEY (business_id) REFERENCES business(business_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)

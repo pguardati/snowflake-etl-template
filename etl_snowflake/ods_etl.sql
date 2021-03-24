@@ -2,6 +2,7 @@ USE DATABASE snowflake_db;
 
 USE schema ods;
 
+-- crate business ods
 INSERT INTO
     business (
         -- process covid features
@@ -86,4 +87,38 @@ INSERT INTO
             bf_processed AS b
             JOIN cf_processed AS c ON b.business_id = c.business_id
             JOIN checkin_processed AS ck ON b.business_id = ck.business_id
-    )
+    );
+
+-- create weather ods
+INSERT INTO
+    weather (
+        WITH t_processed AS (
+            SELECT
+                to_timestamp(date, 'YYYYMMDD') AS weather_date,
+                cast(min AS float) AS temperature_min,
+                cast(max AS float) AS temperature_max,
+                cast(normal_min AS float) AS temperature_normal_min,
+                cast(normal_max AS float) AS temperature_normal_max
+            FROM
+                staging.temperatures
+        ),
+        p_processed AS(
+            SELECT
+                to_timestamp(date, 'YYYYMMDD') AS weather_date,
+                cast(precipitation AS float) AS precipitation,
+                cast(precipitation_normal AS float) AS precipitation_normal
+            FROM
+                staging.precipitations
+        )
+        SELECT
+            p.weather_date AS weather_date,
+            p.precipitation,
+            p.precipitation_normal,
+            t.temperature_min,
+            t.temperature_max,
+            t.temperature_normal_min,
+            t.temperature_normal_max
+        FROM
+            p_processed AS p
+            JOIN t_processed AS t ON p.weather_date = t.weather_date
+    );
