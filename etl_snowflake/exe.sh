@@ -8,4 +8,5 @@ snowsql \
 
 # ods creation and etl from staging
 snowsql \
--f ods_ddl.sql 
+-f ods_ddl.sql \
+-f ods_etl.sql

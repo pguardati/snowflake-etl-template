@@ -166,12 +166,47 @@ INSERT INTO
         )
         SELECT
             t.tips_date,
-            u.user_id,
-            b.business_id,
+            t.user_id,
+            t.business_id,
             t.compliment_count,
             t.tips_text
         FROM
             processed_tips AS t
             JOIN business AS b ON t.business_id = b.business_id
             JOIN users AS u ON t.user_id = u.user_id
-    )
+    );
+
+-- create reviews ods
+INSERT INTO
+    reviews (
+        WITH processed_reviews AS(
+            SELECT
+                json_records: review_id AS review_id,
+                to_timestamp(json_records: date) AS review_date,
+                date_trunc('day', to_date(review_date)) AS review_date_truncated,
+                json_records: business_id AS business_id,
+                json_records: user_id AS user_id,
+                cast(json_records: stars AS int) AS review_stars,
+                cast(json_records: useful AS int) AS useful,
+                cast(json_records: funny AS int) AS funny,
+                cast(json_records: cool AS int) AS cool,
+                json_records: text AS review_text
+            FROM
+                staging.reviews
+        )
+        SELECT
+            r.review_id,
+            r.review_date,
+            r.business_id,
+            r.user_id,
+            r.review_stars,
+            r.useful,
+            r.funny,
+            r.cool,
+            r.review_text
+        FROM
+            processed_reviews AS r
+            JOIN business AS b ON r.business_id = b.business_id
+            JOIN users AS u ON r.user_id = u.user_id
+            JOIN weather AS w ON r.review_date_truncated = w.weather_date
+    );
