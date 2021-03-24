@@ -49,7 +49,7 @@ CREATE TABLE business(
     virtual_services_offered boolean,
     -- covid_banner varchar
     -- highlights varcha
-    checkin_date timestamp,
+    checkin_dates varchar,
     CONSTRAINT pk_business_id PRIMARY KEY (business_id)
 );
 
