@@ -123,7 +123,7 @@ INSERT INTO
             JOIN t_processed AS t ON p.weather_date = t.weather_date
     );
 
--- create users
+-- create users ods
 INSERT INTO
     users (
         SELECT
@@ -150,3 +150,28 @@ INSERT INTO
         FROM
             staging.users
     );
+
+-- create tips ods
+INSERT INTO
+    tips (
+        WITH processed_tips AS(
+            SELECT
+                to_timestamp(json_records :date) AS tips_date,
+                json_records :user_id AS user_id,
+                json_records :business_id AS business_id,
+                cast(json_records :compliment_count AS int) AS compliment_count,
+                json_records :text AS tips_text
+            FROM
+                staging.tips
+        )
+        SELECT
+            t.tips_date,
+            u.user_id,
+            b.business_id,
+            t.compliment_count,
+            t.tips_text
+        FROM
+            processed_tips AS t
+            JOIN business AS b ON t.business_id = b.business_id
+            JOIN users AS u ON t.user_id = u.user_id
+    )

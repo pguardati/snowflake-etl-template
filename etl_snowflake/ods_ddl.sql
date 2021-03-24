@@ -79,13 +79,12 @@ CREATE TABLE users (
 );
 
 CREATE TABLE tips (
-    tips_id int IDENTITY(1, 1),
     tips_date timestamp,
     user_id varchar,
     business_id varchar,
     compliment_count int,
     tips_text varchar,
-    CONSTRAINT pk_tips_id PRIMARY KEY (tips_id),
+    CONSTRAINT pk_tips_id PRIMARY KEY (tips_date),
     CONSTRAINT fk_business_id FOREIGN KEY (business_id) REFERENCES business(business_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
