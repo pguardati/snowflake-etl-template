@@ -6,7 +6,14 @@ import snowflake.connector
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
     SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_CSV, SNOWFLAKE_STAGING_JSON, \
-    DIR_DATA_TEST
+    DIR_DATA_TEST, DIR_DATA
+
+
+def get_partition_files(partition, dir_data):
+    partition_path = os.path.join(dir_data, partition)
+    files = os.listdir(partition_path)
+    relative_files = [os.path.join(partition, file) for file in files]
+    return relative_files
 
 
 def upload_data(
@@ -58,6 +65,8 @@ def main(args=None):
         use schema staging;
         """
     )
+
+    # get dataset files
     datasets_csv = [
         "climate_explorer/USC00420849-BOULDER-precipitation-inch.csv",
         "climate_explorer/USC00420849-temperature-degreeF.csv"
@@ -67,11 +76,18 @@ def main(args=None):
         "yelp_dataset/yelp_academic_dataset_business.json",
         "yelp_dataset/yelp_academic_dataset_checkin.json",
         "yelp_dataset/yelp_academic_dataset_tip.json",
-        "yelp_dataset/yelp_academic_dataset_review_partitioned/yelp_academic_dataset_review_partitioned_0.json",
-        "yelp_dataset/yelp_academic_dataset_review_partitioned/yelp_academic_dataset_review_partitioned_1.json",
-        "yelp_dataset/yelp_academic_dataset_user_partitioned/yelp_academic_dataset_user_partitioned_0.json",
-        "yelp_dataset/yelp_academic_dataset_user_partitioned/yelp_academic_dataset_user_partitioned_1.json"
     ]
+    review_files = get_partition_files(
+        "yelp_dataset/yelp_academic_dataset_review_partitioned",
+        dir_data=args.data_dir
+    )
+    user_partitions = get_partition_files(
+        "yelp_dataset/yelp_academic_dataset_user_partitioned",
+        dir_data=args.data_dir
+    )
+    datasets_json = datasets_json + review_files + user_partitions
+
+    # upload data
     upload_data(
         conn,
         datasets=datasets_csv,
