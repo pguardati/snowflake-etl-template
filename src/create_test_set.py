@@ -65,7 +65,7 @@ def export_data(dataframes):
                       date_format='%Y%m%d')
         elif extension == "json":
             df.to_json(os.path.join(DIR_DATA_TEST, path), orient="records",
-                       date_format="iso")
+                       date_format="iso", lines=True)
 
 
 def main():
