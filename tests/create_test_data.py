@@ -1,9 +1,9 @@
-from src import create_test_set, split_json_file
+from src import sample_datasets, split_json_file
 from src.constants import DIR_DATA_TEST
 
 
 def main():
-    create_test_set.main()
+    sample_datasets.main()
 
     split_json_file.main([
         f"--rel-path-file=yelp_dataset/yelp_academic_dataset_user.json",
