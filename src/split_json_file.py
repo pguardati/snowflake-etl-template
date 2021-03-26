@@ -3,11 +3,14 @@ import sys
 import argparse
 import pandas as pd
 
+from src.constants import DIR_DATA
+
 
 def partition_json_dataset(
         path_file,
-        chunk_size=int(0.5 * 1e6)
+        chunk_size
 ):
+    print(f"Create one partition every {chunk_size} lines")
     # create output directory
     dir_base = os.path.dirname(path_file)
     dataset_name = os.path.basename(path_file).split(".")[0] + "_partitioned"
@@ -43,8 +46,8 @@ def main(args=None):
     args = args or sys.argv[1:]
     parser = argparse.ArgumentParser()
     parser.add_argument("--rel-path-file")
-    parser.add_argument("--base-dir")
-    parser.add_argument("--chunk-size", type=int)
+    parser.add_argument("--base-dir", default=DIR_DATA)
+    parser.add_argument("--chunk-size", type=int, default=int(0.5 * 1e6))
     args = parser.parse_args(args)
     # partition file
     path_file = os.path.join(args.base_dir, args.rel_path_file)
@@ -53,4 +56,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
-
