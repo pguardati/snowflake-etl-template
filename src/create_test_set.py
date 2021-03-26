@@ -57,8 +57,13 @@ def process_data(dataframes):
 
 def export_data(dataframes):
     for table, df in dataframes.items():
+        # create output directory
         path = datasets[table]
-        print(f"exporting test set to {path}")
+        file_output = os.path.join(DIR_DATA_TEST, path)
+        dir_output = os.path.dirname(file_output)
+        os.makedirs(dir_output, exist_ok=True)
+        print(f"store {table} data in {file_output}")
+        # process and store file
         extension = path.split(".")[-1]
         if extension == "csv":
             df.to_csv(os.path.join(DIR_DATA_TEST, path), index=None,
