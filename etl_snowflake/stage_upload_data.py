@@ -67,8 +67,10 @@ def main(args=None):
         "yelp_dataset/yelp_academic_dataset_business.json",
         "yelp_dataset/yelp_academic_dataset_checkin.json",
         "yelp_dataset/yelp_academic_dataset_tip.json",
-        "yelp_dataset/yelp_academic_dataset_review.json",
-        "yelp_dataset/yelp_academic_dataset_user.json"
+        "yelp_dataset/yelp_academic_dataset_review_partitioned/yelp_academic_dataset_review_partitioned_0.json",
+        "yelp_dataset/yelp_academic_dataset_review_partitioned/yelp_academic_dataset_review_partitioned_1.json",
+        "yelp_dataset/yelp_academic_dataset_user_partitioned/yelp_academic_dataset_user_partitioned_0.json",
+        "yelp_dataset/yelp_academic_dataset_user_partitioned/yelp_academic_dataset_user_partitioned_1.json"
     ]
     upload_data(
         conn,
