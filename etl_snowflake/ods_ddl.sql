@@ -1,5 +1,4 @@
-USE DATABASE snowflake_db;
-
+CREATE SCHEMA ods;
 USE schema ods;
 
 -- delete ods tables

@@ -1,5 +1,4 @@
-USE DATABASE snowflake_db;
-
+CREATE SCHEMA staging;
 USE schema staging;
 
 -- create json staging files

@@ -1,5 +1,4 @@
-USE DATABASE snowflake_db;
-
+CREATE SCHEMA dwh;
 USE schema dwh;
 
 -- drop tables

@@ -1,5 +1,3 @@
-USE DATABASE snowflake_db;
-
 USE schema ods;
 
 -- crate business ods

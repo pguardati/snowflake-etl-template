@@ -1,5 +1,3 @@
-USE DATABASE snowflake_db;
-
 USE schema staging;
 
 -- copy from csv files

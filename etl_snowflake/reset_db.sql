@@ -1,5 +1,0 @@
-DROP DATABASE IF EXISTS snowflake_db;
-CREATE DATABASE snowflake_db;
-CREATE SCHEMA staging;
-CREATE SCHEMA ods;
-CREATE SCHEMA dwh;

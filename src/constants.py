@@ -7,7 +7,6 @@ REPOSITORY_PATH = os.path.realpath(__file__)[
 PROJECT_PATH = os.path.join(REPOSITORY_PATH, PROJECT_NAME)
 
 DIR_DATA = os.path.join(os.path.expanduser("~"), "data", "snowflake_data")
-DIR_DATA_TEST = os.path.join(PROJECT_PATH, "tests", "test_data")
 
 # Snowflake Database
 DIR_CONFIG = os.path.join(PROJECT_PATH, "config")
@@ -20,7 +19,10 @@ SNOWFLAKE_ACCOUNT = snowflake_config.get("SNOWFLAKE", "account")
 SNOWFLAKE_STAGING_JSON = "file_json"
 SNOWFLAKE_STAGING_CSV = "file_csv"
 
-SNOWFLAKE_TEST_DB_NAME = "snowflake_db"
+# Test constants
+# TODO: move in test directory
+SNOWFLAKE_TEST_DB_NAME = snowflake_config.get("SNOWFLAKE", "test_db_name")
+DIR_DATA_TEST = os.path.join(PROJECT_PATH, "tests", "test_data")
 
 # Test Database
 DB_NAME = "test_snowflake"
