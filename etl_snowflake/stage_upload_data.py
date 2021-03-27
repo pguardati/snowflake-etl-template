@@ -1,5 +1,7 @@
 import os
 import sys
+import time
+import tqdm
 import argparse
 import snowflake.connector
 
@@ -25,15 +27,17 @@ def upload_data(
     """upload to staging area, copy from staging into tables"""
     cur = conn.cursor()
     # upload data in staging area
-    for dataset in datasets:
+    for dataset in tqdm.tqdm(datasets, total=len(datasets)):
         print(f"Uploading {dataset} into staging")
+        start = time.time()
         file_path = os.path.join(dir_datasets, dataset)
         cur.execute(
             f"""
             put file://{file_path} @{staging_area_name} auto_compress=true;
             """
         )
-        print("response: ", cur.fetchall())
+        elapsed_time = time.time() - start
+        print(f"Up-time: {elapsed_time}s,  response: {cur.fetchall()}\n")
 
 
 def parse_args(args):
