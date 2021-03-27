@@ -16,8 +16,11 @@ sh exe.sh
 # Partition big datasets
 ```
 python src/split_json_file.py \
---rel-path-file=yelp_dataset/yelp_academic_dataset_user.json
+--rel-path-file=yelp_dataset/yelp_academic_dataset_user.json \
+--chunk-size=100000
+
 
 python src/split_json_file.py \
---rel-path-file=yelp_dataset/yelp_academic_dataset_review.json
+--rel-path-file=yelp_dataset/yelp_academic_dataset_review.json \
+--chunk-size=250000
 ```

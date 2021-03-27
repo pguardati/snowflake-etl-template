@@ -10,6 +10,7 @@ def partition_json_dataset(
         path_file,
         chunk_size
 ):
+    # TODO: estimate number of expected partitions
     print(f"Create one partition every {chunk_size} lines")
     # create output directory
     dir_base = os.path.dirname(path_file)
