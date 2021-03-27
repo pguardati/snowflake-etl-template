@@ -2,6 +2,9 @@ DIR_SCRIPTS=etl_snowflake
 DB_NAME=$1
 DATA_DIR=$2
 
+echo "using database $DB_NAME"
+echo "using data from $DATA_DIR"
+
 # create stages
 snowsql -d $DB_NAME \
 -f $DIR_SCRIPTS/stage_ddl.sql

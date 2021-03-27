@@ -3,7 +3,7 @@ USE schema staging;
 -- copy from csv files
 copy INTO precipitations
 FROM
-    '@file_csv/USC00420849-BOULDER-precipitation-inch.csv.gz' file_format = (format_name = csv_records) on_error = 'skip_file';
+    '@file_csv/USC00420849-BOULDER-precipitation-inch.csv.gz' file_format = (format_name = csv_records) on_error = 'continue';
 
 copy INTO temperatures
 FROM
