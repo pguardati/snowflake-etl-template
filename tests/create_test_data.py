@@ -8,13 +8,13 @@ def main():
     split_json_file.main([
         f"--rel-path-file=yelp_dataset/yelp_academic_dataset_user.json",
         f"--base-dir={DIR_DATA_TEST}",
-        "--chunk-size=2"
+        "--chunk-size=5"
     ])
 
     split_json_file.main([
         f"--rel-path-file=yelp_dataset/yelp_academic_dataset_review.json",
         f"--base-dir={DIR_DATA_TEST}",
-        "--chunk-size=2"
+        "--chunk-size=5"
     ])
 
 

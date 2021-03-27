@@ -3,15 +3,25 @@ from tabulate import tabulate
 import snowflake.connector
 import pandas as pd
 
-from src.constants import \
-    SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
-    SNOWFLAKE_DB_NAME, DIR_DATA_TEST, DIR_DATA
+from src.constants import SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD
+
+
+def walklevel(some_dir, level=1):
+    """os.walk with user-defined level of subdirectory exploration"""
+    some_dir = some_dir.rstrip(os.path.sep)
+    assert os.path.isdir(some_dir)
+    num_sep = some_dir.count(os.path.sep)
+    for root, dirs, files in os.walk(some_dir):
+        yield root, dirs, files
+        num_sep_this = root.count(os.path.sep)
+        if num_sep + level <= num_sep_this:
+            del dirs[:]
 
 
 def get_files_information(dir_data):
     """Read file dimensions"""
     file_list = []
-    for path, subdirs, files in os.walk(dir_data):
+    for path, subdirs, files in walklevel(dir_data, level=1):
         for name in files:
             if name.endswith("json") or name.endswith("csv"):
                 file = os.path.join(path, name)
@@ -30,19 +40,28 @@ def get_files_information(dir_data):
     return df_files
 
 
-def main(dir_data=DIR_DATA_TEST):
+def main(args):
+    import sys
+    import argparse
     """Compare raw file size with staged and ods models"""
+    # parse arguments
+    args = args or sys.argv[1:]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--db-name", help="name of snowflake database")
+    parser.add_argument("--data-dir", help="base directory of data files")
+    args = parser.parse_args(args)
+
+    # connect to the database
     conn = snowflake.connector.connect(
         user=SNOWFLAKE_USER,
         password=SNOWFLAKE_PASSWORD,
         account=SNOWFLAKE_ACCOUNT
     )
-
     cur = conn.cursor()
-    cur.execute(f"""use database {SNOWFLAKE_DB_NAME};""")
+    cur.execute(f"""use database {args.db_name};""")
     cur.execute("""use schema INFORMATION_SCHEMA;""")
 
-    df_files = get_files_information(dir_data)
+    df_files = get_files_information(args.data_dir)
 
     # get table dimension
     df_staging = pd.read_sql("""

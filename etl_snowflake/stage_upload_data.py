@@ -7,8 +7,7 @@ import snowflake.connector
 
 from src.constants import \
     SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD, \
-    SNOWFLAKE_DB_NAME, SNOWFLAKE_STAGING_CSV, SNOWFLAKE_STAGING_JSON, \
-    DIR_DATA_TEST, DIR_DATA
+    SNOWFLAKE_STAGING_CSV, SNOWFLAKE_STAGING_JSON
 
 
 def get_partition_files(partition, dir_data):
@@ -43,9 +42,8 @@ def upload_data(
 def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument("--single-partition", action="store_true")
-    parser.add_argument("--data-dir",
-                        help="base directory of data files",
-                        default=DIR_DATA_TEST)
+    parser.add_argument("--db-name", help="name of snowflake database")
+    parser.add_argument("--data-dir", help="base directory of data files")
     return parser.parse_args(args)
 
 
@@ -61,7 +59,7 @@ def main(args=None):
     )
     conn.cursor().execute(
         f"""
-        use database {SNOWFLAKE_DB_NAME};
+        use database {args.db_name};
         """
     )
     conn.cursor().execute(

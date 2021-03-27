@@ -17,9 +17,10 @@ snowflake_config.read_file(open(snowflake_config_file))
 SNOWFLAKE_USER = snowflake_config.get("SNOWFLAKE", "user")
 SNOWFLAKE_PASSWORD = snowflake_config.get("SNOWFLAKE", "password")
 SNOWFLAKE_ACCOUNT = snowflake_config.get("SNOWFLAKE", "account")
-SNOWFLAKE_DB_NAME = "snowflake_db"
 SNOWFLAKE_STAGING_JSON = "file_json"
 SNOWFLAKE_STAGING_CSV = "file_csv"
+
+SNOWFLAKE_TEST_DB_NAME = "snowflake_db"
 
 # Test Database
 DB_NAME = "test_snowflake"
