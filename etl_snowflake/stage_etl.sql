@@ -24,6 +24,10 @@ copy INTO checkins
 FROM
     '@file_json/yelp_academic_dataset_checkin.json.gz' file_format = (format_name = json_records) on_error = 'skip_file';
 
+copy INTO tips
+FROM
+    '@file_json/yelp_academic_dataset_tip.json.gz' file_format = (format_name = json_records) on_error = 'skip_file';
+
 -- copy files with multiple partitions
 COPY INTO users
 FROM
