@@ -48,7 +48,7 @@ def main(args):
     args = args or sys.argv[1:]
     parser = argparse.ArgumentParser()
     parser.add_argument("--db-name", help="name of snowflake database")
-    parser.add_argument("--data-dir", help="base directory of data files")
+    parser.add_argument("--dir-data", help="base directory of data files")
     args = parser.parse_args(args)
 
     # connect to the database
@@ -61,7 +61,7 @@ def main(args):
     cur.execute(f"""use database {args.db_name};""")
     cur.execute("""use schema INFORMATION_SCHEMA;""")
 
-    df_files = get_files_information(args.data_dir)
+    df_files = get_files_information(args.dir_data)
 
     # get table dimension
     df_staging = pd.read_sql("""

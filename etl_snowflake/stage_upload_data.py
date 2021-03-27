@@ -44,14 +44,14 @@ def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument("--single-partition", action="store_true")
     parser.add_argument("--db-name", help="name of snowflake database")
-    parser.add_argument("--data-dir", help="base directory of data files")
+    parser.add_argument("--dir-data", help="base directory of data files")
     return parser.parse_args(args)
 
 
 def main(args=None):
     args = args or sys.argv[1:]
     args = parse_args(args)
-    print(f"Using data directory: {args.data_dir}")
+    print(f"Using data directory: {args.dir_data}")
 
     conn = snowflake.connector.connect(
         user=SNOWFLAKE_USER,
@@ -82,11 +82,11 @@ def main(args=None):
     ]
     review_files = get_partition_files(
         "yelp_dataset/yelp_academic_dataset_review_partitioned",
-        dir_data=args.data_dir
+        dir_data=args.dir_data
     )
     user_partitions = get_partition_files(
         "yelp_dataset/yelp_academic_dataset_user_partitioned",
-        dir_data=args.data_dir
+        dir_data=args.dir_data
     )
     if args.single_partition:
         print("Uploading a single partition for partitioned files")
@@ -99,13 +99,13 @@ def main(args=None):
         conn,
         datasets=datasets_csv,
         staging_area_name=SNOWFLAKE_STAGING_CSV,
-        dir_datasets=args.data_dir
+        dir_datasets=args.dir_data
     )
     upload_data(
         conn,
         datasets=datasets_json,
         staging_area_name=SNOWFLAKE_STAGING_JSON,
-        dir_datasets=args.data_dir
+        dir_datasets=args.dir_data
     )
 
 
