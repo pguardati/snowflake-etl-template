@@ -35,17 +35,17 @@ DROP TABLE IF EXISTS users;
 
 -- create staging tables
 CREATE TABLE precipitations (
-    date varchar,
-    precipitation float,
-    precipitation_normal float
+    date variant,
+    precipitation variant,
+    precipitation_normal variant
 );
 
 CREATE TABLE temperatures (
-    date varchar,
-    min float,
-    max float,
-    normal_min float,
-    normal_max float
+    date variant,
+    min variant,
+    max variant,
+    normal_min variant,
+    normal_max variant
 );
 
 CREATE TABLE IF NOT EXISTS covid_features (json_records variant);

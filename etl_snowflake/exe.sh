@@ -1,8 +1,7 @@
-# setup database and stage data
-snowsql \
--f reset_db.sql \
--f stage_ddl.sql
+snowsql -f reset_db.sql
 
+# stage data
+snowsql -f stage_ddl.sql
 python stage_upload_data.py
 snowsql -f stage_etl.sql
 

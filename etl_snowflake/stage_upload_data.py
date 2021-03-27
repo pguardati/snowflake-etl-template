@@ -45,8 +45,7 @@ def parse_args(args):
 
 
 def main(args=None):
-    if not args:
-        args = sys.argv[1:]
+    args = args or sys.argv[1:]
     args = parse_args(args)
     print(f"Using data directory: {args.data_dir}")
 
@@ -103,4 +102,4 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    main([f"--data-dir={DIR_DATA_TEST}"])
+    main()

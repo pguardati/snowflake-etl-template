@@ -94,7 +94,7 @@ INSERT INTO
     weather (
         WITH t_processed AS (
             SELECT
-                to_timestamp(date, 'YYYYMMDD') AS weather_date,
+                to_timestamp(date :: varchar, 'YYYYMMDD') AS weather_date,
                 cast(min AS float) AS temperature_min,
                 cast(max AS float) AS temperature_max,
                 cast(normal_min AS float) AS temperature_normal_min,
@@ -104,11 +104,13 @@ INSERT INTO
         ),
         p_processed AS(
             SELECT
-                to_timestamp(date, 'YYYYMMDD') AS weather_date,
+                to_timestamp(date :: varchar, 'YYYYMMDD') AS weather_date,
                 cast(precipitation AS float) AS precipitation,
                 cast(precipitation_normal AS float) AS precipitation_normal
             FROM
                 staging.precipitations
+            WHERE
+                is_real(precipitation) 
         )
         SELECT
             p.weather_date AS weather_date,
