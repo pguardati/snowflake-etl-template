@@ -38,6 +38,7 @@ def upload_data(
 
 def parse_args(args):
     parser = argparse.ArgumentParser()
+    parser.add_argument("--single-partition", action="store_true")
     parser.add_argument("--data-dir",
                         help="base directory of data files",
                         default=DIR_DATA_TEST)
@@ -84,7 +85,11 @@ def main(args=None):
         "yelp_dataset/yelp_academic_dataset_user_partitioned",
         dir_data=args.data_dir
     )
-    datasets_json = datasets_json + review_files + user_partitions
+    if args.single_partition:
+        print("Uploading a single partition for partitioned files")
+        datasets_json = datasets_json + [review_files[0], user_partitions[0]]
+    else:
+        datasets_json = datasets_json + review_files + user_partitions
 
     # upload data
     upload_data(
