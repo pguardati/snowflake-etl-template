@@ -10,6 +10,13 @@ def partition_json_dataset(
         path_file,
         chunk_size
 ):
+    """Split json file in chunks
+
+    Args:
+        path_file(str): path of json file
+        chunk_size(int): number of lines in each chunk
+
+    """
     # TODO: estimate number of expected partitions
     print(f"Create one partition every {chunk_size} lines")
     # create output directory
@@ -45,7 +52,8 @@ def partition_json_dataset(
 def main(args=None):
     # parse command line arguments
     args = args or sys.argv[1:]
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Split a json file in"
+                                                 "chunks of reduced size")
     parser.add_argument("--rel-path-file")
     parser.add_argument("--base-dir", default=DIR_DATA)
     parser.add_argument("--chunk-size", type=int, default=int(0.5 * 1e6))

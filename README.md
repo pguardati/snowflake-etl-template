@@ -9,7 +9,7 @@ Copy config in `config/snowflake.config`
 
 ```
 # create test set
-python tests/create_test_data.py
+python tests/transform_to_test_data.py
 # run tests
 python discover -u tests
 ```

@@ -12,6 +12,7 @@ DIR_SCRIPTS = os.path.join(PROJECT_PATH, "src", "etl")
 
 
 class TestModules(unittest.TestCase):
+    """Test independent functionalities"""
     def setUp(self):
         _ = call(
             f"snowsql -f {DIR_SCRIPTS}/db_reset.sql -D DB_NAME={SNOWFLAKE_TEST_DB_NAME}",
@@ -37,6 +38,7 @@ class TestModules(unittest.TestCase):
 
 
 class TestEtls(unittest.TestCase):
+    """Test etl pipeline end to end"""
     def setUp(self):
         _ = call(
             f"snowsql -f {DIR_SCRIPTS}/db_reset.sql -D DB_NAME={SNOWFLAKE_TEST_DB_NAME}",

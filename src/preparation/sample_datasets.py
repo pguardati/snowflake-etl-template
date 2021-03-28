@@ -16,6 +16,14 @@ datasets = {
 
 
 def read_data(number_of_elements):
+    """Read datasets
+
+    Args:
+        number_of_elements(int): number of elements to read from each dataset
+
+    Returns:
+        dict: datasets with format {"dataset_name":pd.DataFrame}
+    """
     dataframes = {}
     for table, dataset_path in datasets.items():
         extension = dataset_path.split(".")[-1]
@@ -29,7 +37,15 @@ def read_data(number_of_elements):
     return dataframes
 
 
-def process_data(dataframes):
+def transform_to_test_data(dataframes):
+    """Transform datasets into test data
+
+    Args:
+        dataframes(dict): list of pd.Dataframes
+
+    Returns:
+        dict: datasets with format {"dataset_name":pd.DataFrame}
+    """
     df_reviews = dataframes["reviews"]
 
     business_ids = list(df_reviews.business_id)
@@ -56,6 +72,12 @@ def process_data(dataframes):
 
 
 def export_data(dataframes):
+    """Store dataframes in test directory
+
+    Args:
+        dataframes(dict): dict of pd.Dataframes
+
+    """
     for table, df in dataframes.items():
         # create output directory
         path = datasets[table]
@@ -74,9 +96,10 @@ def export_data(dataframes):
 
 
 def main():
+    """Extract 10 elements from each dataset"""
     number_of_elements = 10
     dataframes = read_data(number_of_elements)
-    dataframes = process_data(dataframes)
+    dataframes = transform_to_test_data(dataframes)
     export_data(dataframes)
 
 
