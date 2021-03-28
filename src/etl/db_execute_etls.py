@@ -1,7 +1,7 @@
 import sys
 import argparse
 from subprocess import call
-from etl_snowflake import stage_upload_data
+from src.etl import stage_upload_data
 
 
 def main(args=None):

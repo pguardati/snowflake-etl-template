@@ -3,12 +3,12 @@ import warnings
 import unittest
 from subprocess import call
 
-from etl_snowflake import stage_upload_data, db_execute_etls, \
+from src.etl import db_execute_etls, stage_upload_data, \
     stage_dim_comparison
 from src.constants import PROJECT_PATH, DIR_DATA_TEST
 
 SNOWFLAKE_TEST_DB_NAME = "snowflake_test_db"
-DIR_SCRIPTS = os.path.join(PROJECT_PATH, "etl_snowflake")
+DIR_SCRIPTS = os.path.join(PROJECT_PATH, "src", "etl")
 
 
 class TestModules(unittest.TestCase):

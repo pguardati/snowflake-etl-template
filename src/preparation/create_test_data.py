@@ -1,4 +1,4 @@
-from src import sample_datasets, split_json_file
+from src.preparation import sample_datasets, split_json_file
 from src.constants import DIR_DATA_TEST
 
 
