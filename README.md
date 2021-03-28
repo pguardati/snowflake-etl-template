@@ -32,9 +32,12 @@ python src/split_json_file.py \
 ## Run the etl
 
 ```
+# create a new database
 #snowsql -f etl_snowflake/db_reset.sql -D DB_NAME=snowflake_db
-sh etl_snowflake/db_execute_etls.sh \
-snowflake_db \
-/Users/pietroguardati/data/snowflake_data \
-/Users/pietroguardati/PycharmProjects/snowflake-etl-template/etl_snowflake
+
+# run the etl
+python etl_snowflake/db_execute_etls.py \
+--db-name=snowflake_db \
+--dir-data=/Users/pietroguardati/data/snowflake_data \
+--dir-scripts=/Users/pietroguardati/PycharmProjects/snowflake-etl-template/etl_snowflake
 ```

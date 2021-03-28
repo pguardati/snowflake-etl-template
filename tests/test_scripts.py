@@ -3,7 +3,8 @@ import warnings
 import unittest
 from subprocess import call
 
-from etl_snowflake import stage_dim_comparison, stage_upload_data
+from etl_snowflake import stage_upload_data, db_execute_etls, \
+    stage_dim_comparison
 from src.constants import PROJECT_PATH, DIR_DATA_TEST
 
 SNOWFLAKE_TEST_DB_NAME = "snowflake_test_db"
@@ -44,8 +45,9 @@ class TestEtls(unittest.TestCase):
         )
 
     def test_etls(self):
-        _ = call(
-            f"sh {DIR_SCRIPTS}/db_execute_etls.sh {SNOWFLAKE_TEST_DB_NAME} {DIR_DATA_TEST} {DIR_SCRIPTS}",
-            shell=True,
-            env=os.environ.copy()
-        )
+        warnings.simplefilter("ignore", ResourceWarning)
+        db_execute_etls.main([
+            f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
+            f"--dir-data={DIR_DATA_TEST}",
+            f"--dir-scripts={DIR_SCRIPTS}"
+        ])
