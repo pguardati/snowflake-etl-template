@@ -31,6 +31,7 @@ INSERT INTO
             -- join to enforce consitency on wether key
             temperature_processed AS t
             JOIN precipitations AS p ON t.weather_date = p.weather_date
+            where temperature_max IS NOT NULL AND temperature_min IS NOT NULL
     );
 
 -- business tables

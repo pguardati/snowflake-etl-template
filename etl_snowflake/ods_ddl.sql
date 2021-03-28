@@ -22,8 +22,8 @@ CREATE TABLE temperatures (
     weather_date timestamp,
     temperature_min float NOT NULL,
     temperature_max float NOT NULL,
-    temperature_normal_min float NOT NULL,
-    temperature_normal_max float NOT NULL,
+    temperature_normal_min float,
+    temperature_normal_max float,
     CONSTRAINT pk_weather_id PRIMARY KEY (weather_date)
 );
 

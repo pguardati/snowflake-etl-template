@@ -49,6 +49,13 @@ def main(args=None):
         """,
         shell=True
     )
+    _ = call(
+        f"""
+        snowsql -d {args.db_name} \
+        -f {args.dir_scripts}/dwh_query.sql
+        """,
+        shell=True
+    )
 
 
 if __name__ == "__main__":
