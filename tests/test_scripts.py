@@ -23,7 +23,6 @@ class TestModules(unittest.TestCase):
         )
 
     def test_upload_data(self):
-        # suppress resource warning for snowflake requests in same session
         warnings.simplefilter("ignore", ResourceWarning)
         stage_upload_data.main([
             f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
@@ -51,3 +50,7 @@ class TestEtls(unittest.TestCase):
             f"--dir-data={DIR_DATA_TEST}",
             f"--dir-scripts={DIR_SCRIPTS}"
         ])
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -19,11 +19,13 @@ def main(args=None):
     print(f"Using scripts from {args.dir_data}")
     print(f"Using scripts from {args.dir_scripts}")
 
-    # create stages
+    # create schemas
     _ = call(
         f"""
         snowsql -d {args.db_name} \
-        -f {args.dir_scripts}/stage_ddl.sql 
+        -f {args.dir_scripts}/stage_ddl.sql \
+        -f {args.dir_scripts}/ods_ddl.sql \
+        -f {args.dir_scripts}/dwh_ddl.sql 
         """,
         shell=True
     )
@@ -34,14 +36,13 @@ def main(args=None):
         f"--dir-data={args.dir_data}"
     ])
 
-    # transfer data: stage -> ods ->
+    # transfer data: stage -> ods -> dwh
     _ = call(
         f"""
         snowsql -d {args.db_name} \
         -f {args.dir_scripts}/stage_etl.sql \
-        -f {args.dir_scripts}/ods_ddl.sql \
         -f {args.dir_scripts}/ods_etl.sql \
-        -f {args.dir_scripts}/dwh_ddl_etl.sql
+        -f {args.dir_scripts}/dwh_etl.sql
         """,
         shell=True
     )
