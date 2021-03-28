@@ -1,4 +1,6 @@
 import os
+import sys
+import argparse
 from tabulate import tabulate
 import snowflake.connector
 import pandas as pd
@@ -40,9 +42,7 @@ def get_files_information(dir_data):
     return df_files
 
 
-def main(args):
-    import sys
-    import argparse
+def main(args=None):
     """Compare raw file size with staged and ods models"""
     # parse arguments
     args = args or sys.argv[1:]
