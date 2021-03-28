@@ -1,19 +1,23 @@
 # snowflake-etl-template
 
-
 # Setup snowflake
+
 Insert credentials `~/.snowsql/config`
 Copy config in `config/snowflake.config`
 
-
 # Test
+
 ```
+# create test set
 python tests/create_test_data.py
-cd etl_snowflake
-sh exe.sh
+# run tests
+python discover -u tests
 ```
 
-# Partition big datasets
+# Usage
+
+## Partition big datasets
+
 ```
 python src/split_json_file.py \
 --rel-path-file=yelp_dataset/yelp_academic_dataset_user.json \
@@ -23,4 +27,14 @@ python src/split_json_file.py \
 python src/split_json_file.py \
 --rel-path-file=yelp_dataset/yelp_academic_dataset_review.json \
 --chunk-size=250000
+```
+
+## Run the etl
+
+```
+#snowsql -f etl_snowflake/db_reset.sql -D DB_NAME=snowflake_db
+sh etl_snowflake/db_execute_etls.sh \
+snowflake_db \
+/Users/pietroguardati/data/snowflake_data \
+/Users/pietroguardati/PycharmProjects/snowflake-etl-template/etl_snowflake
 ```

@@ -1,19 +1,25 @@
+import os
 import warnings
-from unittest import TestCase
+import unittest
+from subprocess import call
 
 from etl_snowflake import stage_dim_comparison, stage_upload_data
-from src.constants import DIR_DATA_TEST, SNOWFLAKE_TEST_DB_NAME
+from src.constants import PROJECT_PATH, DIR_DATA_TEST
+
+SNOWFLAKE_TEST_DB_NAME = "snowflake_test_db"
+DIR_SCRIPTS = os.path.join(PROJECT_PATH, "etl_snowflake")
 
 
-# TODO: add creation of test database and of staging
-
-
-class TestScripts(TestCase):
-    def test_dim_comparison(self):
-        stage_dim_comparison.main([
-            f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
-            f"--dir-data={DIR_DATA_TEST}"
-        ])
+class TestModules(unittest.TestCase):
+    def setUp(self):
+        _ = call(
+            f"snowsql -f {DIR_SCRIPTS}/db_reset.sql -D DB_NAME={SNOWFLAKE_TEST_DB_NAME}",
+            shell=True
+        )
+        _ = call(
+            f"snowsql -f {DIR_SCRIPTS}/stage_ddl.sql -d {SNOWFLAKE_TEST_DB_NAME}",
+            shell=True
+        )
 
     def test_upload_data(self):
         # suppress resource warning for snowflake requests in same session
@@ -22,3 +28,24 @@ class TestScripts(TestCase):
             f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
             f"--dir-data={DIR_DATA_TEST}"
         ])
+
+    def test_dim_comparison(self):
+        stage_dim_comparison.main([
+            f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
+            f"--dir-data={DIR_DATA_TEST}"
+        ])
+
+
+class TestEtls(unittest.TestCase):
+    def setUp(self):
+        _ = call(
+            f"snowsql -f {DIR_SCRIPTS}/db_reset.sql -D DB_NAME={SNOWFLAKE_TEST_DB_NAME}",
+            shell=True
+        )
+
+    def test_etls(self):
+        _ = call(
+            f"sh {DIR_SCRIPTS}/db_execute_etls.sh {SNOWFLAKE_TEST_DB_NAME} {DIR_DATA_TEST} {DIR_SCRIPTS}",
+            shell=True,
+            env=os.environ.copy()
+        )

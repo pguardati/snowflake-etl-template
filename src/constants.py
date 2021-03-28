@@ -21,7 +21,6 @@ SNOWFLAKE_STAGING_CSV = "file_csv"
 
 # Test constants
 # TODO: move in test directory
-SNOWFLAKE_TEST_DB_NAME = snowflake_config.get("SNOWFLAKE", "test_db_name")
 DIR_DATA_TEST = os.path.join(PROJECT_PATH, "tests", "test_data")
 
 # Test Database

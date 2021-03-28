@@ -1,7 +1,8 @@
-DIR_SCRIPTS=etl_snowflake
 DB_NAME=$1
 DATA_DIR=$2
+DIR_SCRIPTS=$3
 
+echo "using scripts from $DIR_SCRIPTS"
 echo "using database $DB_NAME"
 echo "using data from $DATA_DIR"
 
