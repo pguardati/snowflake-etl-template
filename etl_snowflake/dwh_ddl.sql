@@ -1,4 +1,3 @@
-CREATE SCHEMA dwh;
 USE schema dwh;
 
 -- drop tables

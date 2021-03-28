@@ -38,6 +38,6 @@ python src/split_json_file.py \
 # run the etl
 python etl_snowflake/db_execute_etls.py \
 --db-name=snowflake_db \
---dir-data=/Users/pietroguardati/data/snowflake_data \
---dir-scripts=/Users/pietroguardati/PycharmProjects/snowflake-etl-template/etl_snowflake
+--dir-scripts=/Users/pietroguardati/PycharmProjects/snowflake-etl-template/etl_snowflake \
+--dir-data=/Users/pietroguardati/data/snowflake_data 
 ```
