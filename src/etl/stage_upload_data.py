@@ -23,7 +23,15 @@ def upload_data(
         staging_area_name,
         dir_datasets
 ):
-    """upload to staging area, copy from staging into tables"""
+    """Upload datasets to staging area
+
+    Args:
+        conn(snowflake.connection): snowflake's connection object
+        datasets(list): list of dataset names
+        staging_area_name(str): name of the staging area
+        dir_datasets(str): directory where data are stored
+
+    """
     cur = conn.cursor()
     # upload data in staging area
     for dataset in tqdm.tqdm(
@@ -36,12 +44,12 @@ def upload_data(
             put file://{file_path} @{staging_area_name} auto_compress=true;
             """
         )
-        elapsed_time = round(time.time() - start,3)
+        elapsed_time = round(time.time() - start, 3)
         print(f"Up-time: {elapsed_time}s,  response: {cur.fetchall()}")
 
 
 def parse_args(args):
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Upload data to staging area")
     parser.add_argument("--single-partition", action="store_true")
     parser.add_argument("--db-name", help="name of snowflake database")
     parser.add_argument("--dir-data", help="base directory of data files")

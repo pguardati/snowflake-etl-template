@@ -9,7 +9,13 @@ from src.constants import SNOWFLAKE_USER, SNOWFLAKE_ACCOUNT, SNOWFLAKE_PASSWORD
 
 
 def walklevel(some_dir, level=1):
-    """os.walk with user-defined level of subdirectory exploration"""
+    """os.walk with user-defined level of subdirectory exploration
+    (imported from stack overflow)
+    Args:
+        some_dir(str): path of a directory
+        level(int): maximum number of sub-directories levels to explore
+
+    """
     some_dir = some_dir.rstrip(os.path.sep)
     assert os.path.isdir(some_dir)
     num_sep = some_dir.count(os.path.sep)
@@ -21,7 +27,14 @@ def walklevel(some_dir, level=1):
 
 
 def get_files_information(dir_data):
-    """Read file dimensions"""
+    """Read dimension of each dataset
+
+    Args:
+        dir_data(str): directory where the data are stored
+
+    Returns:
+        pd.DataFrame
+    """
     file_list = []
     for path, subdirs, files in walklevel(dir_data, level=1):
         for name in files:
