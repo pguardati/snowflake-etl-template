@@ -53,7 +53,7 @@ python src/split_json_file.py \
 ### Run the etl
 In order to transfer and process the data into a snowflake database, run:
 ```
-(Substitute dir-data and dir-scripts)
+DIR_DATA=your_data_path
 
 # create a new database
 snowsql -f src/etl/db_reset.sql -D DB_NAME=snowflake_db
@@ -61,15 +61,13 @@ snowsql -f src/etl/db_reset.sql -D DB_NAME=snowflake_db
 # upload data in the staging area
 python src/etl/stage_upload_data.py \
 --db-name=snowflake_db \
---dir-data=/Users/pietroguardati/data/snowflake_data 
+--dir-data=$DIR_DATA
 
 # run the etl on real dataset 
-python src/etl/db_execute_etls.py \
---db-name=snowflake_db \
---dir-scripts=/Users/pietroguardati/PycharmProjects/snowflake-etl-template/etl_snowflake 
+python src/etl/db_execute_etls.py --db-name=snowflake_db 
 
 # compare dimension of raw files vs uploaded files
 python src/etl/stage_dim_comparison.py \
 --db-name=snowflake_db \
---dir-data=/Users/pietroguardati/data/snowflake_data 
+--dir-data=$DIR_DATA
 ```

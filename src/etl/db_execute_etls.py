@@ -1,7 +1,11 @@
+import os
 import sys
 import argparse
 from subprocess import call
-from src.etl import stage_upload_data
+
+from src.constants import PROJECT_PATH
+
+SCRIPTS_PATH = os.path.join(PROJECT_PATH, "src", "etl")
 
 
 def main(args=None):
@@ -10,20 +14,18 @@ def main(args=None):
         description="Orchestrate etl pipelines to store, clean "
                     "and transfer data in a snowflake data warehouse")
     parser.add_argument("--db-name")
-    parser.add_argument("--dir-scripts")
     parser.add_argument("--dir-data")
     args = args or sys.argv[1:]
     args = parser.parse_args(args)
     print(f"Using database {args.db_name}")
-    print(f"Using scripts from {args.dir_scripts}")
 
     # create schemas
     _ = call(
         f"""
         snowsql -d {args.db_name} \
-        -f {args.dir_scripts}/stage_ddl.sql \
-        -f {args.dir_scripts}/ods_ddl.sql \
-        -f {args.dir_scripts}/dwh_ddl.sql 
+        -f {SCRIPTS_PATH}/stage_ddl.sql \
+        -f {SCRIPTS_PATH}/ods_ddl.sql \
+        -f {SCRIPTS_PATH}/dwh_ddl.sql 
         """,
         shell=True
     )
@@ -32,16 +34,16 @@ def main(args=None):
     _ = call(
         f"""
         snowsql -d {args.db_name} \
-        -f {args.dir_scripts}/stage_etl.sql \
-        -f {args.dir_scripts}/ods_etl.sql \
-        -f {args.dir_scripts}/dwh_etl.sql
+        -f {SCRIPTS_PATH}/stage_etl.sql \
+        -f {SCRIPTS_PATH}/ods_etl.sql \
+        -f {SCRIPTS_PATH}/dwh_etl.sql
         """,
         shell=True
     )
     _ = call(
         f"""
         snowsql -d {args.db_name} \
-        -f {args.dir_scripts}/dwh_query.sql
+        -f {SCRIPTS_PATH}/dwh_query.sql
         """,
         shell=True
     )
