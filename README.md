@@ -1,6 +1,21 @@
 # snowflake-etl-template
 Scripts to transfer and process data in snowflake.
 
+# Design
+The database consists in 3 stages:
+- A Staging Area, where raw data are uploaded
+- An Operational Data Store (ODS), where clean transactional data are stored
+- A Data Warehouse (DWH), where data for analytics query are stored
+
+![Design](docs/0-data-architecture.png)
+
+In the ODS, data are modelled as a (simplified) snowflake schema - with 2 dimension tables (reviews and tips):
+![ODS](docs/0-ods-conceptual-erd.png)
+
+In the DWH, data are modelled as a star schema with reviews as transaction table:
+![DWH](docs/0-dwh-physical-erd.png)
+
+
 ## Configuration 
 
 ### Snowflake credentials
