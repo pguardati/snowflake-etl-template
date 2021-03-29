@@ -1,1 +1,9 @@
 /.idea/
+/.vscode
+/config/
+/dev/
+/data/
+**/__pycache__
+snowsql_rt.log
+snowsql_rt.log_bootstrap
+.DS_Store
