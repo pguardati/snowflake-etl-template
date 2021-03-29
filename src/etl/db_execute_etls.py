@@ -17,17 +17,6 @@ def main(args=None):
     print(f"Using database {args.db_name}")
     print(f"Using scripts from {args.dir_scripts}")
 
-    # stage data
-    if args.dir_data:
-        print(f"Received data folder: {args.dir_data}")
-        print("Uploading data..")
-        stage_upload_data.main([
-            f"--db-name={args.db_name}",
-            f"--dir-data={args.dir_data}"
-        ])
-    else:
-        print("No data directory received: files uploading skipped")
-
     # create schemas
     _ = call(
         f"""

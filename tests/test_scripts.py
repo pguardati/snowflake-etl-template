@@ -40,16 +40,21 @@ class TestModules(unittest.TestCase):
 class TestEtls(unittest.TestCase):
     """Test etl pipeline end to end"""
     def setUp(self):
+        warnings.simplefilter("ignore", ResourceWarning)
+        # reset database and upload test data
         _ = call(
             f"snowsql -f {DIR_SCRIPTS}/db_reset.sql -D DB_NAME={SNOWFLAKE_TEST_DB_NAME}",
             shell=True
         )
+        stage_upload_data.main([
+            f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
+            f"--dir-data={DIR_DATA_TEST}"
+        ])
 
     def test_etls(self):
         warnings.simplefilter("ignore", ResourceWarning)
         db_execute_etls.main([
             f"--db-name={SNOWFLAKE_TEST_DB_NAME}",
-            f"--dir-data={DIR_DATA_TEST}",
             f"--dir-scripts={DIR_SCRIPTS}"
         ])
 
